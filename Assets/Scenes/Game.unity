@@ -634,7 +634,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &215935249
 GameObject:
@@ -734,7 +734,7 @@ RectTransform:
   - {fileID: 151799172}
   - {fileID: 1455811823}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1129,7 +1129,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &585567199
 PrefabInstance:
@@ -1384,6 +1384,59 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7973787213919865600, guid: 0d547652fbfa13c47adbd429ebc8e6d0, type: 3}
   m_PrefabInstance: {fileID: 7973787213696100593}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &860967848
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 860967849}
+  - component: {fileID: 860967850}
+  m_Layer: 0
+  m_Name: MainController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &860967849
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 860967848}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &860967850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 860967848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6537711b556426542a044a4f500b7c78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _levelsStaticData:
+  - {fileID: 11400000, guid: 55617989aa9a00c45b9e36981359a2f1, type: 2}
+  - {fileID: 11400000, guid: 6d780386ba56a5a4b8ee9310f0b0c012, type: 2}
+  _imagePrefab: {fileID: 7973787213919865603, guid: 0d547652fbfa13c47adbd429ebc8e6d0, type: 3}
+  _wordButtonPrefab: {fileID: 62871248873341139, guid: d31eaf4cce351a94fb0fc1d66476ab8a, type: 3}
+  _keyboardButtonPrefab: {fileID: 1092224365439151777, guid: b520bc5762ab97c4a8fa5e533dd4d9c3, type: 3}
+  _imagesContainer: {fileID: 89228223}
+  _wordContainer: {fileID: 702325900}
+  _keyboardContainer: {fileID: 1777639649}
 --- !u!1001 &985658471
 PrefabInstance:
   m_ObjectHideFlags: 0
