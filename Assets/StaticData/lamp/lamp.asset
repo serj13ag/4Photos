@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db6336041741ae14c8a0a8901d8f4184, type: 3}
+  m_Name: lamp
+  m_EditorClassIdentifier: 
+  LevelName: lamp
+  Images:
+  - {fileID: 21300000, guid: 2cd54c32833cfee45b5c6a302d39a6dc, type: 3}
+  - {fileID: 21300000, guid: 5b4162b36ba52e94c9ed7268b5a31292, type: 3}
+  - {fileID: 21300000, guid: a6f3c5676736871499bf24a2e24b5a60, type: 3}
+  - {fileID: 21300000, guid: ffd75f65dddfa924689a84037d44a217, type: 3}
+  Word: lamp
