@@ -1433,7 +1433,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6d780386ba56a5a4b8ee9310f0b0c012, type: 2}
   _imagePrefab: {fileID: 7973787213919865603, guid: 0d547652fbfa13c47adbd429ebc8e6d0, type: 3}
   _wordButtonPrefab: {fileID: 62871248873341139, guid: d31eaf4cce351a94fb0fc1d66476ab8a, type: 3}
-  _keyboardButtonPrefab: {fileID: 1092224365439151777, guid: b520bc5762ab97c4a8fa5e533dd4d9c3, type: 3}
+  _keyboardButtonPrefab: {fileID: 3073105865170726679, guid: b520bc5762ab97c4a8fa5e533dd4d9c3, type: 3}
   _imagesContainer: {fileID: 89228223}
   _wordContainer: {fileID: 702325900}
   _keyboardContainer: {fileID: 1777639649}
