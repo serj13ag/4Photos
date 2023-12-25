@@ -7,9 +7,9 @@ namespace Prefabs
     {
         [SerializeField] private TMP_Text _text;
 
-        public void Init(string character)
+        public void Init()
         {
-            _text.text = character;
+            _text.text = string.Empty;
         }
     }
 }
