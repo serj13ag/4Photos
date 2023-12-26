@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using EventArgs;
 using Prefabs;
 using ScriptableObjects;
 using Services;
@@ -19,6 +20,8 @@ namespace Controllers
         [SerializeField] private Transform _wordContainer;
         [SerializeField] private Transform _keyboardContainer;
 
+        private WordButton[] _wordButtons;
+
         private void Start()
         {
             LevelStaticData currentLevelStaticData = _levelsStaticData[0];
@@ -32,6 +35,13 @@ namespace Controllers
             CreateImages(currentLevelStaticData.Images);
             CreateWordButtons(wordService.AnswerChars.Length);
             CreateKeyboardButtons(charactersForKeyboard, wordService);
+
+            wordService.OnCharacterAdded += OnWordCharacterAdded;
+        }
+
+        private void OnWordCharacterAdded(object sender, CharacterAddedEventArgs e)
+        {
+            _wordButtons[e.Index].SetCharacter(e.Character);
         }
 
         private void CreateImages(IEnumerable<Sprite> images)
@@ -45,10 +55,13 @@ namespace Controllers
 
         private void CreateWordButtons(int numberOfButtons)
         {
+            _wordButtons = new WordButton[numberOfButtons];
+
             for (int i = 0; i < numberOfButtons; i++)
             {
                 WordButton wordButton = Instantiate(_wordButtonPrefab, _wordContainer);
                 wordButton.Init();
+                _wordButtons[i] = wordButton;
             }
         }
 

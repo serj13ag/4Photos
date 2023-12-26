@@ -11,5 +11,10 @@ namespace Prefabs
         {
             _text.text = string.Empty;
         }
+
+        public void SetCharacter(char character)
+        {
+            _text.text = character.ToString();
+        }
     }
 }

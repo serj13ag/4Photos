@@ -1,5 +1,5 @@
-﻿using TMPro;
-using UnityEngine;
+﻿using System;
+using EventArgs;
 
 namespace Services
 {
@@ -9,6 +9,8 @@ namespace Services
         private int _currentWordCharIndex;
 
         public char[] AnswerChars { get; }
+
+        public event EventHandler<CharacterAddedEventArgs> OnCharacterAdded;
 
         public WordService(string answer)
         {
@@ -22,8 +24,9 @@ namespace Services
         {
             if (_currentWordCharIndex < _wordChars.Length)
             {
-                _wordChars[_currentWordCharIndex++] = character;
-                Debug.LogError(_wordChars.ArrayToString()); // TODO: remove
+                int index = _currentWordCharIndex++;
+                _wordChars[index] = character;
+                OnCharacterAdded?.Invoke(this, new CharacterAddedEventArgs(character, index));
             }
         }
     }
