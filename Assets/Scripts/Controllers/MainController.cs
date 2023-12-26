@@ -1,18 +1,14 @@
 using System.Collections.Generic;
-using Extensions;
 using Prefabs;
 using ScriptableObjects;
+using Services;
 using UnityEngine;
 using UnityEngine.UI;
-using Random = System.Random;
 
 namespace Controllers
 {
     public class MainController : MonoBehaviour
     {
-        private const string AlphabetCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        private const int NumberOfKeyboardButtons = 14;
-
         [SerializeField] private LevelStaticData[] _levelsStaticData;
 
         [SerializeField] private Image _imagePrefab;
@@ -23,39 +19,19 @@ namespace Controllers
         [SerializeField] private Transform _wordContainer;
         [SerializeField] private Transform _keyboardContainer;
 
-        private string _answerWord;
-
         private void Start()
         {
-            Random randomService = new Random();
-
-            ClearContainers();
-
             LevelStaticData currentLevelStaticData = _levelsStaticData[0];
 
-            _answerWord = currentLevelStaticData.Word.ToUpper();
-            string[] charactersForKeyboard = GetCharactersForKeyboard(_answerWord, randomService);
+            RandomService randomService = new RandomService();
+            WordService wordService = new WordService(currentLevelStaticData.Word.ToUpper());
 
+            char[] charactersForKeyboard = randomService.GetCharactersForKeyboard(wordService.AnswerChars, Constants.NumberOfKeyboardButtons);
+
+            ClearContainers();
             CreateImages(currentLevelStaticData.Images);
-            CreateWordButtons(_answerWord.Length);
-            CreateKeyboardButtons(charactersForKeyboard);
-        }
-
-        private static string[] GetCharactersForKeyboard(string answerWord, Random randomService)
-        {
-            string[] randomCharacters = new string[NumberOfKeyboardButtons];
-
-            for (int i = 0; i < randomCharacters.Length; i++)
-            {
-                char character = i < answerWord.Length
-                    ? answerWord[i]
-                    : AlphabetCharacters[randomService.Next(AlphabetCharacters.Length)];
-
-                randomCharacters[i] = character.ToString().ToUpper();
-            }
-
-            randomCharacters.Shuffle(randomService);
-            return randomCharacters;
+            CreateWordButtons(wordService.AnswerChars.Length);
+            CreateKeyboardButtons(charactersForKeyboard, wordService);
         }
 
         private void CreateImages(IEnumerable<Sprite> images)
@@ -76,12 +52,12 @@ namespace Controllers
             }
         }
 
-        private void CreateKeyboardButtons(IReadOnlyList<string> randomCharacters)
+        private void CreateKeyboardButtons(IReadOnlyList<char> randomCharacters, WordService wordService)
         {
-            for (int i = 0; i < NumberOfKeyboardButtons; i++)
+            for (int i = 0; i < Constants.NumberOfKeyboardButtons; i++)
             {
                 var keyboardButtonPrefab = Instantiate(_keyboardButtonPrefab, _keyboardContainer);
-                keyboardButtonPrefab.Init(randomCharacters[i]);
+                keyboardButtonPrefab.Init(randomCharacters[i], wordService);
             }
         }
 
