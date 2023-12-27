@@ -38,16 +38,21 @@ namespace Prefabs
             _button.interactable = true;
         }
 
-        private void OnButtonClick()
+        public void RemoveCharacter()
         {
             _keyboardButton.TurnInteractable();
             _keyboardButton = null;
-            
+
             _mainController.UpdateCurrentWordCharIndex();
 
             _text.text = string.Empty;
             _image.color = Constants.EmptyButtonColor;
             _button.interactable = false;
+        }
+
+        private void OnButtonClick()
+        {
+            RemoveCharacter();
         }
     }
 }

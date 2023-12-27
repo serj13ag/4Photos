@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Prefabs;
 using ScriptableObjects;
@@ -20,9 +19,16 @@ namespace Controllers
         [SerializeField] private Transform _wordContainer;
         [SerializeField] private Transform _keyboardContainer;
 
+        [SerializeField] private Button _resetWordButton;
+
         private char[] _answerChars;
         private WordButton[] _wordButtons;
         private int _currentWordCharIndex;
+
+        private void OnEnable()
+        {
+            _resetWordButton.onClick.AddListener(OnResetWordButtonClicked);
+        }
 
         private void Start()
         {
@@ -39,6 +45,11 @@ namespace Controllers
             CreateImages(currentLevelStaticData.Images);
             CreateWordButtons(_answerChars.Length);
             CreateKeyboardButtons(charactersForKeyboard);
+        }
+
+        private void OnDisable()
+        {
+            _resetWordButton.onClick.RemoveListener(OnResetWordButtonClicked);
         }
 
         public bool TryFillWord(KeyboardButton keyboardButton)
@@ -65,6 +76,19 @@ namespace Controllers
             }
 
             _currentWordCharIndex = -1;
+        }
+
+        private void OnResetWordButtonClicked()
+        {
+            foreach (WordButton wordButton in _wordButtons)
+            {
+                if (wordButton.HasCharacter)
+                {
+                    wordButton.RemoveCharacter();
+                }
+            }
+
+            _currentWordCharIndex = 0;
         }
 
         private void CreateImages(IEnumerable<Sprite> images)
