@@ -43,7 +43,7 @@ namespace Prefabs
             _keyboardButton.TurnInteractable();
             _keyboardButton = null;
             
-            _mainController.WordButtonClicked();
+            _mainController.UpdateCurrentWordCharIndex();
 
             _text.text = string.Empty;
             _image.color = Constants.EmptyButtonColor;

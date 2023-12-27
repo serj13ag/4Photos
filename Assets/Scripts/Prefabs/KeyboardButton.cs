@@ -33,9 +33,11 @@ namespace Prefabs
 
         private void OnButtonClick()
         {
-            _mainController.KeyboardButtonClicked(this);
+            if (_mainController.TryFillWord(this))
+            {
+                _button.interactable = false;
 
-            _button.interactable = false;
+            }
         }
     }
 }

@@ -41,23 +41,19 @@ namespace Controllers
             CreateKeyboardButtons(charactersForKeyboard);
         }
 
-        public void KeyboardButtonClicked(KeyboardButton keyboardButton)
+        public bool TryFillWord(KeyboardButton keyboardButton)
         {
             if (_currentWordCharIndex == -1)
             {
-                return;
+                return false;
             }
 
             _wordButtons[_currentWordCharIndex].FillWithButton(keyboardButton);
             UpdateCurrentWordCharIndex();
+            return true;
         }
 
-        public void WordButtonClicked()
-        {
-            UpdateCurrentWordCharIndex();
-        }
-
-        private void UpdateCurrentWordCharIndex()
+        public void UpdateCurrentWordCharIndex()
         {
             for (int i = 0; i < _wordButtons.Length; i++)
             {
