@@ -1,3 +1,4 @@
+using Controllers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,10 +11,16 @@ namespace Prefabs
         [SerializeField] private TMP_Text _text;
         [SerializeField] private Button _button;
 
+        private MainController _mainController;
+
         private KeyboardButton _keyboardButton;
 
-        public void Init()
+        public bool HasCharacter => _keyboardButton != null;
+
+        public void Init(MainController mainController)
         {
+            _mainController = mainController;
+
             _text.text = string.Empty;
 
             _image.color = Constants.EmptyButtonColor;
@@ -35,6 +42,8 @@ namespace Prefabs
         {
             _keyboardButton.TurnInteractable();
             _keyboardButton = null;
+            
+            _mainController.WordButtonClicked();
 
             _text.text = string.Empty;
             _image.color = Constants.EmptyButtonColor;

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Prefabs;
 using ScriptableObjects;
@@ -42,7 +43,32 @@ namespace Controllers
 
         public void KeyboardButtonClicked(KeyboardButton keyboardButton)
         {
-            _wordButtons[_currentWordCharIndex++].FillWithButton(keyboardButton);
+            if (_currentWordCharIndex == -1)
+            {
+                return;
+            }
+
+            _wordButtons[_currentWordCharIndex].FillWithButton(keyboardButton);
+            UpdateCurrentWordCharIndex();
+        }
+
+        public void WordButtonClicked()
+        {
+            UpdateCurrentWordCharIndex();
+        }
+
+        private void UpdateCurrentWordCharIndex()
+        {
+            for (int i = 0; i < _wordButtons.Length; i++)
+            {
+                if (!_wordButtons[i].HasCharacter)
+                {
+                    _currentWordCharIndex = i;
+                    return;
+                }
+            }
+
+            _currentWordCharIndex = -1;
         }
 
         private void CreateImages(IEnumerable<Sprite> images)
@@ -61,7 +87,7 @@ namespace Controllers
             for (int i = 0; i < numberOfButtons; i++)
             {
                 WordButton wordButton = Instantiate(_wordButtonPrefab, _wordContainer);
-                wordButton.Init();
+                wordButton.Init(this);
                 _wordButtons[i] = wordButton;
             }
         }
