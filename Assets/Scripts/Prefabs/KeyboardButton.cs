@@ -1,4 +1,4 @@
-﻿using Services;
+﻿using Controllers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,23 +10,32 @@ namespace Prefabs
         [SerializeField] private TMP_Text _text;
         [SerializeField] private Button _button;
 
-        private WordService _wordService;
+        private MainController _mainController;
 
-        private char _character;
+        public char Character { get; private set; }
 
-        public void Init(char character, WordService wordService)
+        public void Init(char character, MainController mainController)
         {
-            _character = character;
-            _wordService = wordService;
+            _mainController = mainController;
+
+            Character = character;
 
             _text.text = character.ToString();
 
+            _button.interactable = true;
             _button.onClick.AddListener(OnButtonClick);
+        }
+
+        public void TurnInteractable()
+        {
+            _button.interactable = true;
         }
 
         private void OnButtonClick()
         {
-            _wordService.AddCharacter(_character);
+            _mainController.KeyboardButtonClicked(this);
+
+            _button.interactable = false;
         }
     }
 }

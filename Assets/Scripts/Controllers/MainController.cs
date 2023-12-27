@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using EventArgs;
 using Prefabs;
 using ScriptableObjects;
 using Services;
@@ -20,28 +19,30 @@ namespace Controllers
         [SerializeField] private Transform _wordContainer;
         [SerializeField] private Transform _keyboardContainer;
 
+        private char[] _answerChars;
         private WordButton[] _wordButtons;
+        private int _currentWordCharIndex;
 
         private void Start()
         {
             LevelStaticData currentLevelStaticData = _levelsStaticData[0];
 
             RandomService randomService = new RandomService();
-            WordService wordService = new WordService(currentLevelStaticData.Word.ToUpper());
 
-            char[] charactersForKeyboard = randomService.GetCharactersForKeyboard(wordService.AnswerChars, Constants.NumberOfKeyboardButtons);
+            _answerChars = currentLevelStaticData.Word.ToUpper().ToCharArray();
+            _currentWordCharIndex = 0;
+
+            char[] charactersForKeyboard = randomService.GetCharactersForKeyboard(_answerChars, Constants.NumberOfKeyboardButtons);
 
             ClearContainers();
             CreateImages(currentLevelStaticData.Images);
-            CreateWordButtons(wordService.AnswerChars.Length);
-            CreateKeyboardButtons(charactersForKeyboard, wordService);
-
-            wordService.OnCharacterAdded += OnWordCharacterAdded;
+            CreateWordButtons(_answerChars.Length);
+            CreateKeyboardButtons(charactersForKeyboard);
         }
 
-        private void OnWordCharacterAdded(object sender, CharacterAddedEventArgs e)
+        public void KeyboardButtonClicked(KeyboardButton keyboardButton)
         {
-            _wordButtons[e.Index].SetCharacter(e.Character);
+            _wordButtons[_currentWordCharIndex++].FillWithButton(keyboardButton);
         }
 
         private void CreateImages(IEnumerable<Sprite> images)
@@ -65,12 +66,12 @@ namespace Controllers
             }
         }
 
-        private void CreateKeyboardButtons(IReadOnlyList<char> randomCharacters, WordService wordService)
+        private void CreateKeyboardButtons(IReadOnlyList<char> randomCharacters)
         {
             for (int i = 0; i < Constants.NumberOfKeyboardButtons; i++)
             {
                 var keyboardButtonPrefab = Instantiate(_keyboardButtonPrefab, _keyboardContainer);
-                keyboardButtonPrefab.Init(randomCharacters[i], wordService);
+                keyboardButtonPrefab.Init(randomCharacters[i], this);
             }
         }
 
