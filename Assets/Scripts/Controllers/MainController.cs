@@ -47,7 +47,7 @@ namespace Controllers
 
             ClearContainers();
             CreateImages(currentLevelStaticData.Images);
-            CreateWordButtons(_answerChars.Length);
+            CreateWordButtons(_answerChars);
             CreateKeyboardButtons(charactersForKeyboard);
         }
 
@@ -114,14 +114,14 @@ namespace Controllers
             }
         }
 
-        private void CreateWordButtons(int numberOfButtons)
+        private void CreateWordButtons(char[] answerChars)
         {
-            _wordButtons = new WordButton[numberOfButtons];
+            _wordButtons = new WordButton[answerChars.Length];
 
-            for (int i = 0; i < numberOfButtons; i++)
+            for (int i = 0; i < _wordButtons.Length; i++)
             {
                 WordButton wordButton = Instantiate(_wordButtonPrefab, _wordContainer);
-                wordButton.Init(this);
+                wordButton.Init(answerChars[i], this);
                 _wordButtons[i] = wordButton;
             }
         }

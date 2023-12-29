@@ -12,13 +12,15 @@ namespace Prefabs
         [SerializeField] private Button _button;
 
         private MainController _mainController;
+        private char _answerChar;
 
         private KeyboardButton _keyboardButton;
 
         public bool HasCharacter => _keyboardButton != null;
 
-        public void Init(MainController mainController)
+        public void Init(char answerChar, MainController mainController)
         {
+            _answerChar = answerChar;
             _mainController = mainController;
 
             _text.text = string.Empty;
