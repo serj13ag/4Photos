@@ -1,3 +1,4 @@
+using System;
 using Controllers;
 using TMPro;
 using UnityEngine;
@@ -7,6 +8,13 @@ namespace Prefabs
 {
     public class WordButton : MonoBehaviour
     {
+        private enum WordButtonState
+        {
+            Empty,
+            FilledByKeyboard,
+            FilledByHint,
+        }
+
         [SerializeField] private Image _image;
         [SerializeField] private TMP_Text _text;
         [SerializeField] private Button _button;
@@ -14,48 +22,39 @@ namespace Prefabs
         private MainController _mainController;
         private char _answerCharacter;
 
+        private WordButtonState _state;
         private char? _selectedCharacter;
         private KeyboardButton _keyboardButton;
 
-        public bool IsLocked { get; private set; }
         public bool HasCharacter => _selectedCharacter.HasValue;
+        public bool IsLocked => _state == WordButtonState.FilledByHint;
 
         public void Init(char answerCharacter, MainController mainController)
         {
             _mainController = mainController;
             _answerCharacter = answerCharacter;
 
-            _text.text = string.Empty;
+            ChangeState(WordButtonState.Empty);
 
-            _image.color = Constants.EmptyButtonColor;
-
-            _button.interactable = false;
             _button.onClick.AddListener(OnButtonClick);
         }
 
-        public void FillWithButton(KeyboardButton keyboardButton)
+        public void FillByKeyboard(KeyboardButton keyboardButton)
         {
             _selectedCharacter = keyboardButton.Character;
             _keyboardButton = keyboardButton;
 
-            _text.text = keyboardButton.Character.ToString();
-            _image.color = Constants.FilledByKeyboardButtonColor;
-            _button.interactable = true;
+            ChangeState(WordButtonState.FilledByKeyboard);
         }
 
-        public void SetAnswerCharacter()
+        public void FillByHint()
         {
             _selectedCharacter = _answerCharacter;
-            IsLocked = true;
 
-            _text.text = _selectedCharacter.ToString();
-
-            _image.color = Constants.FilledByHintButtonColor;
-
-            _button.interactable = false;
+            ChangeState(WordButtonState.FilledByHint);
         }
 
-        public void RemoveCharacter()
+        public void SetAsEmpty()
         {
             _selectedCharacter = null;
 
@@ -64,14 +63,50 @@ namespace Prefabs
 
             _mainController.UpdateCurrentWordCharIndex();
 
-            _text.text = string.Empty;
-            _image.color = Constants.EmptyButtonColor;
-            _button.interactable = false;
+            ChangeState(WordButtonState.Empty);
         }
 
         private void OnButtonClick()
         {
-            RemoveCharacter();
+            SetAsEmpty();
+        }
+
+        private void ChangeState(WordButtonState newState)
+        {
+            _state = newState;
+            UpdateView(newState);
+        }
+
+        private void UpdateView(WordButtonState newState)
+        {
+            string text;
+            Color color;
+            bool isInteractable;
+
+            switch (newState)
+            {
+                case WordButtonState.Empty:
+                    text = string.Empty;
+                    color = Constants.EmptyButtonColor;
+                    isInteractable = false;
+                    break;
+                case WordButtonState.FilledByKeyboard:
+                    text = _selectedCharacter.ToString();
+                    color = Constants.FilledByKeyboardButtonColor;
+                    isInteractable = true;
+                    break;
+                case WordButtonState.FilledByHint:
+                    text = _selectedCharacter.ToString();
+                    color = Constants.FilledByHintButtonColor;
+                    isInteractable = false;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
+            }
+
+            _text.text = text;
+            _image.color = color;
+            _button.interactable = isInteractable;
         }
     }
 }

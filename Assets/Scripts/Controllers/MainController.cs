@@ -68,7 +68,7 @@ namespace Controllers
                 return false;
             }
 
-            _wordButtons[_currentWordCharIndex].FillWithButton(keyboardButton);
+            _wordButtons[_currentWordCharIndex].FillByKeyboard(keyboardButton);
             UpdateCurrentWordCharIndex();
             return true;
         }
@@ -93,7 +93,7 @@ namespace Controllers
             {
                 if (wordButton.HasCharacter && !wordButton.IsLocked)
                 {
-                    wordButton.RemoveCharacter();
+                    wordButton.SetAsEmpty();
                 }
             }
 
@@ -110,7 +110,7 @@ namespace Controllers
             {
                 if (!wordButton.HasCharacter)
                 {
-                    wordButton.SetAnswerCharacter();
+                    wordButton.FillByHint();
                     UpdateCurrentWordCharIndex();
                     return;
                 }
