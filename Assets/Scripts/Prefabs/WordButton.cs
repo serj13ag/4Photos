@@ -23,10 +23,10 @@ namespace Prefabs
         private char _answerCharacter;
 
         private WordButtonState _state;
-        private char? _selectedCharacter;
-        private KeyboardButton _keyboardButton;
+        private char? _filledCharacter;
+        private KeyboardButton _keyboardButtonUsedToFillCharacter;
 
-        public bool HasCharacter => _selectedCharacter.HasValue;
+        public bool IsFilledWithCharacter => _filledCharacter.HasValue;
         public bool IsLocked => _state == WordButtonState.FilledByHint;
 
         public void Init(char answerCharacter, MainController mainController)
@@ -41,25 +41,25 @@ namespace Prefabs
 
         public void FillByKeyboard(KeyboardButton keyboardButton)
         {
-            _selectedCharacter = keyboardButton.Character;
-            _keyboardButton = keyboardButton;
+            _filledCharacter = keyboardButton.Character;
+            _keyboardButtonUsedToFillCharacter = keyboardButton;
 
             ChangeState(WordButtonState.FilledByKeyboard);
         }
 
         public void FillByHint()
         {
-            _selectedCharacter = _answerCharacter;
+            _filledCharacter = _answerCharacter;
 
             ChangeState(WordButtonState.FilledByHint);
         }
 
         public void SetAsEmpty()
         {
-            _selectedCharacter = null;
+            _filledCharacter = null;
 
-            _keyboardButton.TurnInteractable();
-            _keyboardButton = null;
+            _keyboardButtonUsedToFillCharacter.Activate();
+            _keyboardButtonUsedToFillCharacter = null;
 
             _mainController.UpdateCurrentWordCharIndex();
 
@@ -91,12 +91,12 @@ namespace Prefabs
                     isInteractable = false;
                     break;
                 case WordButtonState.FilledByKeyboard:
-                    text = _selectedCharacter.ToString();
+                    text = _filledCharacter.ToString();
                     color = Constants.FilledByKeyboardButtonColor;
                     isInteractable = true;
                     break;
                 case WordButtonState.FilledByHint:
-                    text = _selectedCharacter.ToString();
+                    text = _filledCharacter.ToString();
                     color = Constants.FilledByHintButtonColor;
                     isInteractable = false;
                     break;

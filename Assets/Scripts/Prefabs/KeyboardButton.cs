@@ -26,7 +26,7 @@ namespace Prefabs
             _button.onClick.AddListener(OnButtonClick);
         }
 
-        public void TurnInteractable()
+        public void Activate()
         {
             _button.interactable = true;
         }
