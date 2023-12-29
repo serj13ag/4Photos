@@ -26,8 +26,9 @@ namespace Controllers
 
         private RandomService _randomService;
 
-        private char[] _answerChars;
+        private string _answerWord;
         private WordButton[] _wordButtons;
+        private KeyboardButton[] _keyboardButtons;
         private int _currentWordCharIndex;
 
         private void OnEnable()
@@ -43,14 +44,13 @@ namespace Controllers
 
             _randomService = new RandomService();
 
-            _answerChars = currentLevelStaticData.Word.ToUpper().ToCharArray();
-            _currentWordCharIndex = 0;
-
-            char[] charactersForKeyboard = _randomService.GetCharactersForKeyboard(_answerChars, Constants.NumberOfKeyboardButtons);
+            _answerWord = currentLevelStaticData.Word.ToUpper();
+            char[] answerChars = _answerWord.ToCharArray();
+            char[] charactersForKeyboard = _randomService.GetCharactersForKeyboard(answerChars, Constants.NumberOfKeyboardButtons);
 
             ClearContainers();
             CreateImages(currentLevelStaticData.Images);
-            CreateWordButtons(_answerChars);
+            CreateWordButtons(answerChars);
             CreateKeyboardButtons(charactersForKeyboard);
         }
 
@@ -77,7 +77,7 @@ namespace Controllers
         {
             for (int i = 0; i < _wordButtons.Length; i++)
             {
-                if (!_wordButtons[i].HasCharacter)
+                if (!_wordButtons[i].IsFilledWithCharacter)
                 {
                     _currentWordCharIndex = i;
                     return;
@@ -91,7 +91,7 @@ namespace Controllers
         {
             foreach (WordButton wordButton in _wordButtons)
             {
-                if (wordButton.HasCharacter && !wordButton.IsLocked)
+                if (wordButton.IsFilledWithCharacter && !wordButton.IsLocked)
                 {
                     wordButton.SetAsEmpty();
                 }
@@ -102,13 +102,21 @@ namespace Controllers
 
         private void OnHintHideWrongKeyboardCharacterButtonClicked()
         {
+            foreach (KeyboardButton keyboardButton in _keyboardButtons.OrderBy(_ => _randomService.Random.Next()))
+            {
+                if (!keyboardButton.IsHided && !_answerWord.Contains(keyboardButton.Character))
+                {
+                    keyboardButton.Hide();
+                    return;
+                }
+            }
         }
 
         private void OnHintFillWordCharacterButtonClicked()
         {
             foreach (WordButton wordButton in _wordButtons.OrderBy(_ => _randomService.Random.Next()))
             {
-                if (!wordButton.HasCharacter)
+                if (!wordButton.IsFilledWithCharacter)
                 {
                     wordButton.FillByHint();
                     UpdateCurrentWordCharIndex();
@@ -140,10 +148,13 @@ namespace Controllers
 
         private void CreateKeyboardButtons(IReadOnlyList<char> randomCharacters)
         {
-            for (int i = 0; i < Constants.NumberOfKeyboardButtons; i++)
+            _keyboardButtons = new KeyboardButton[randomCharacters.Count];
+
+            for (int i = 0; i < randomCharacters.Count; i++)
             {
-                var keyboardButtonPrefab = Instantiate(_keyboardButtonPrefab, _keyboardContainer);
-                keyboardButtonPrefab.Init(randomCharacters[i], this);
+                KeyboardButton keyboardButton = Instantiate(_keyboardButtonPrefab, _keyboardContainer);
+                keyboardButton.Init(randomCharacters[i], this);
+                _keyboardButtons[i] = keyboardButton;
             }
         }
 
