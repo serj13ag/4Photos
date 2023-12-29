@@ -20,6 +20,8 @@ namespace Controllers
         [SerializeField] private Transform _keyboardContainer;
 
         [SerializeField] private Button _resetWordButton;
+        [SerializeField] private Button _hintShowWordCharacterButton;
+        [SerializeField] private Button _hintHideWrongKeyboardCharacterButton;
 
         private char[] _answerChars;
         private WordButton[] _wordButtons;
@@ -28,6 +30,8 @@ namespace Controllers
         private void OnEnable()
         {
             _resetWordButton.onClick.AddListener(OnResetWordButtonClicked);
+            _hintShowWordCharacterButton.onClick.AddListener(OnHintShowWordCharacterButtonClicked);
+            _hintHideWrongKeyboardCharacterButton.onClick.AddListener(OnHintHideWrongKeyboardCharacterButtonClicked);
         }
 
         private void Start()
@@ -50,6 +54,8 @@ namespace Controllers
         private void OnDisable()
         {
             _resetWordButton.onClick.RemoveListener(OnResetWordButtonClicked);
+            _hintShowWordCharacterButton.onClick.RemoveListener(OnHintShowWordCharacterButtonClicked);
+            _hintHideWrongKeyboardCharacterButton.onClick.RemoveListener(OnHintHideWrongKeyboardCharacterButtonClicked);
         }
 
         public bool TryFillWord(KeyboardButton keyboardButton)
@@ -89,6 +95,14 @@ namespace Controllers
             }
 
             _currentWordCharIndex = 0;
+        }
+
+        private void OnHintHideWrongKeyboardCharacterButtonClicked()
+        {
+        }
+
+        private void OnHintShowWordCharacterButtonClicked()
+        {
         }
 
         private void CreateImages(IEnumerable<Sprite> images)
