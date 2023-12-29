@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Prefabs;
 using ScriptableObjects;
 using Services;
@@ -23,6 +24,8 @@ namespace Controllers
         [SerializeField] private Button _hintShowWordCharacterButton;
         [SerializeField] private Button _hintHideWrongKeyboardCharacterButton;
 
+        private RandomService _randomService;
+
         private char[] _answerChars;
         private WordButton[] _wordButtons;
         private int _currentWordCharIndex;
@@ -38,12 +41,12 @@ namespace Controllers
         {
             LevelStaticData currentLevelStaticData = _levelsStaticData[0];
 
-            RandomService randomService = new RandomService();
+            _randomService = new RandomService();
 
             _answerChars = currentLevelStaticData.Word.ToUpper().ToCharArray();
             _currentWordCharIndex = 0;
 
-            char[] charactersForKeyboard = randomService.GetCharactersForKeyboard(_answerChars, Constants.NumberOfKeyboardButtons);
+            char[] charactersForKeyboard = _randomService.GetCharactersForKeyboard(_answerChars, Constants.NumberOfKeyboardButtons);
 
             ClearContainers();
             CreateImages(currentLevelStaticData.Images);
@@ -88,13 +91,13 @@ namespace Controllers
         {
             foreach (WordButton wordButton in _wordButtons)
             {
-                if (wordButton.HasCharacter)
+                if (wordButton.HasCharacter && !wordButton.IsLocked)
                 {
                     wordButton.RemoveCharacter();
                 }
             }
 
-            _currentWordCharIndex = 0;
+            UpdateCurrentWordCharIndex();
         }
 
         private void OnHintHideWrongKeyboardCharacterButtonClicked()
@@ -103,6 +106,15 @@ namespace Controllers
 
         private void OnHintShowWordCharacterButtonClicked()
         {
+            foreach (WordButton wordButton in _wordButtons.OrderBy(_ => _randomService.Random.Next()))
+            {
+                if (!wordButton.HasCharacter)
+                {
+                    wordButton.SetAnswerCharacter();
+                    UpdateCurrentWordCharIndex();
+                    return;
+                }
+            }
         }
 
         private void CreateImages(IEnumerable<Sprite> images)

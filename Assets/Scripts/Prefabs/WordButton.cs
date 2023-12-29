@@ -12,16 +12,18 @@ namespace Prefabs
         [SerializeField] private Button _button;
 
         private MainController _mainController;
-        private char _answerChar;
+        private char _answerCharacter;
 
+        private char? _selectedCharacter;
         private KeyboardButton _keyboardButton;
 
-        public bool HasCharacter => _keyboardButton != null;
+        public bool IsLocked { get; private set; }
+        public bool HasCharacter => _selectedCharacter.HasValue;
 
-        public void Init(char answerChar, MainController mainController)
+        public void Init(char answerCharacter, MainController mainController)
         {
-            _answerChar = answerChar;
             _mainController = mainController;
+            _answerCharacter = answerCharacter;
 
             _text.text = string.Empty;
 
@@ -33,15 +35,30 @@ namespace Prefabs
 
         public void FillWithButton(KeyboardButton keyboardButton)
         {
+            _selectedCharacter = keyboardButton.Character;
             _keyboardButton = keyboardButton;
 
             _text.text = keyboardButton.Character.ToString();
-            _image.color = Constants.FilledButtonColor;
+            _image.color = Constants.FilledByKeyboardButtonColor;
             _button.interactable = true;
+        }
+
+        public void SetAnswerCharacter()
+        {
+            _selectedCharacter = _answerCharacter;
+            IsLocked = true;
+
+            _text.text = _selectedCharacter.ToString();
+
+            _image.color = Constants.FilledByHintButtonColor;
+
+            _button.interactable = false;
         }
 
         public void RemoveCharacter()
         {
+            _selectedCharacter = null;
+
             _keyboardButton.TurnInteractable();
             _keyboardButton = null;
 

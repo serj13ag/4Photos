@@ -6,11 +6,11 @@ namespace Services
 {
     public class RandomService
     {
-        private readonly Random _random;
+        public Random Random { get; }
 
         public RandomService()
         {
-            _random = new Random();
+            Random = new Random();
         }
 
         public char[] GetCharactersForKeyboard(IReadOnlyList<char> charsToInclude, int count)
@@ -21,10 +21,10 @@ namespace Services
             {
                 randomCharacters[i] = i < charsToInclude.Count
                     ? charsToInclude[i]
-                    : Constants.AlphabetCharacters[_random.Next(Constants.AlphabetCharacters.Length)];
+                    : Constants.AlphabetCharacters[Random.Next(Constants.AlphabetCharacters.Length)];
             }
 
-            randomCharacters.Shuffle(_random);
+            randomCharacters.Shuffle(Random);
             return randomCharacters;
         }
     }

@@ -6,5 +6,6 @@ public static class Constants
     public const int NumberOfKeyboardButtons = 14;
 
     public static Color EmptyButtonColor = Color.white;
-    public static Color FilledButtonColor = Color.yellow;
+    public static Color FilledByKeyboardButtonColor = Color.yellow;
+    public static Color FilledByHintButtonColor = Color.green;
 }
