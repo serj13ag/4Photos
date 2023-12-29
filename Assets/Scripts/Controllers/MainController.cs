@@ -21,7 +21,7 @@ namespace Controllers
         [SerializeField] private Transform _keyboardContainer;
 
         [SerializeField] private Button _resetWordButton;
-        [SerializeField] private Button _hintShowWordCharacterButton;
+        [SerializeField] private Button _hintFillWordCharacterButton;
         [SerializeField] private Button _hintHideWrongKeyboardCharacterButton;
 
         private RandomService _randomService;
@@ -33,7 +33,7 @@ namespace Controllers
         private void OnEnable()
         {
             _resetWordButton.onClick.AddListener(OnResetWordButtonClicked);
-            _hintShowWordCharacterButton.onClick.AddListener(OnHintShowWordCharacterButtonClicked);
+            _hintFillWordCharacterButton.onClick.AddListener(OnHintFillWordCharacterButtonClicked);
             _hintHideWrongKeyboardCharacterButton.onClick.AddListener(OnHintHideWrongKeyboardCharacterButtonClicked);
         }
 
@@ -57,7 +57,7 @@ namespace Controllers
         private void OnDisable()
         {
             _resetWordButton.onClick.RemoveListener(OnResetWordButtonClicked);
-            _hintShowWordCharacterButton.onClick.RemoveListener(OnHintShowWordCharacterButtonClicked);
+            _hintFillWordCharacterButton.onClick.RemoveListener(OnHintFillWordCharacterButtonClicked);
             _hintHideWrongKeyboardCharacterButton.onClick.RemoveListener(OnHintHideWrongKeyboardCharacterButtonClicked);
         }
 
@@ -104,7 +104,7 @@ namespace Controllers
         {
         }
 
-        private void OnHintShowWordCharacterButtonClicked()
+        private void OnHintFillWordCharacterButtonClicked()
         {
             foreach (WordButton wordButton in _wordButtons.OrderBy(_ => _randomService.Random.Next()))
             {

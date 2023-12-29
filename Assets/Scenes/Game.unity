@@ -1527,7 +1527,7 @@ GameObject:
   - component: {fileID: 721215478}
   - component: {fileID: 721215477}
   m_Layer: 5
-  m_Name: HintShowButton
+  m_Name: HintFillWordButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1695,7 +1695,7 @@ MonoBehaviour:
   _wordContainer: {fileID: 702325900}
   _keyboardContainer: {fileID: 1777639649}
   _resetWordButton: {fileID: 1856555157}
-  _hintShowWordCharacterButton: {fileID: 721215477}
+  _hintFillWordCharacterButton: {fileID: 721215477}
   _hintHideWrongKeyboardCharacterButton: {fileID: 946079119}
 --- !u!1 &894587512
 GameObject:
@@ -1845,7 +1845,7 @@ GameObject:
   - component: {fileID: 946079120}
   - component: {fileID: 946079119}
   m_Layer: 5
-  m_Name: HintHideButton
+  m_Name: HintHideWrongButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
