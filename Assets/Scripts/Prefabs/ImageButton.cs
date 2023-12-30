@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Controllers;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Prefabs
@@ -9,8 +10,11 @@ namespace Prefabs
         [SerializeField] private Image _image;
         [SerializeField] private Button _button;
 
-        public void Init(Sprite sprite, Vector2 pivot)
+        private MainController _mainController;
+
+        public void Init(Sprite sprite, Vector2 pivot, MainController mainController)
         {
+            _mainController = mainController;
             _image.sprite = sprite;
             _rectTransform.pivot = pivot;
 
@@ -19,7 +23,7 @@ namespace Prefabs
 
         private void OnImageButtonClick()
         {
-            // Scale image
+            _mainController.ShowScalingImage(_image.sprite, _rectTransform);
         }
     }
 }

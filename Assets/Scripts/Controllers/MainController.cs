@@ -16,10 +16,12 @@ namespace Controllers
         [SerializeField] private ImageButton _imageButtonPrefab;
         [SerializeField] private WordButton _wordButtonPrefab;
         [SerializeField] private KeyboardButton _keyboardButtonPrefab;
+        [SerializeField] private ScalingImagePrefab _scalingImagePrefab;
 
-        [SerializeField] private Transform _imagesContainer;
+        [SerializeField] private RectTransform _imagesGridRectTransform;
         [SerializeField] private Transform _wordContainer;
         [SerializeField] private Transform _keyboardContainer;
+        [SerializeField] private Transform _scalingImageContainer;
 
         [SerializeField] private Button _resetWordButton;
         [SerializeField] private Button _hintFillWordCharacterButton;
@@ -31,6 +33,7 @@ namespace Controllers
         private WordButton[] _wordButtons;
         private KeyboardButton[] _keyboardButtons;
         private int _currentWordCharIndex;
+        private ScalingImagePrefab _scalingImage;
 
         private void OnEnable()
         {
@@ -130,8 +133,8 @@ namespace Controllers
         {
             for (int i = 0; i < images.Count; i++)
             {
-                ImageButton imagePrefab = Instantiate(_imageButtonPrefab, _imagesContainer);
-                imagePrefab.Init(images[i], GetImagePivotByIndex(i));
+                ImageButton imagePrefab = Instantiate(_imageButtonPrefab, _imagesGridRectTransform);
+                imagePrefab.Init(images[i], GetImagePivotByIndex(i), this);
             }
         }
 
@@ -161,7 +164,7 @@ namespace Controllers
 
         private void ClearContainers()
         {
-            DestroyAllChildren(_imagesContainer);
+            DestroyAllChildren(_imagesGridRectTransform);
             DestroyAllChildren(_wordContainer);
             DestroyAllChildren(_keyboardContainer);
         }
@@ -184,6 +187,12 @@ namespace Controllers
                 3 => new Vector2(1, 0),
                 _ => throw new ArgumentOutOfRangeException(nameof(i), i, null)
             };
+        }
+
+        public void ShowScalingImage(Sprite sprite, RectTransform imageRectTransform)
+        {
+            _scalingImage = Instantiate(_scalingImagePrefab, _scalingImageContainer);
+            _scalingImage.Init(sprite, imageRectTransform.position, imageRectTransform.sizeDelta, imageRectTransform.pivot, _imagesGridRectTransform.rect.size);
         }
     }
 }
