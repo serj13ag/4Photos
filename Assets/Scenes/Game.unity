@@ -235,6 +235,7 @@ GameObject:
   m_Component:
   - component: {fileID: 89228223}
   - component: {fileID: 89228224}
+  - component: {fileID: 89228225}
   m_Layer: 5
   m_Name: ImagesGrid
   m_TagString: Untagged
@@ -290,6 +291,20 @@ MonoBehaviour:
   m_Spacing: {x: 10, y: 10}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!114 &89228225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 89228222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 2
+  m_VerticalFit: 2
 --- !u!1001 &95406798
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1688,7 +1703,7 @@ MonoBehaviour:
   _levelsStaticData:
   - {fileID: 11400000, guid: 55617989aa9a00c45b9e36981359a2f1, type: 2}
   - {fileID: 11400000, guid: 6d780386ba56a5a4b8ee9310f0b0c012, type: 2}
-  _imagePrefab: {fileID: 7973787213919865603, guid: 0d547652fbfa13c47adbd429ebc8e6d0, type: 3}
+  _imageButtonPrefab: {fileID: 319131692809642303, guid: 0d547652fbfa13c47adbd429ebc8e6d0, type: 3}
   _wordButtonPrefab: {fileID: 62871248873341139, guid: d31eaf4cce351a94fb0fc1d66476ab8a, type: 3}
   _keyboardButtonPrefab: {fileID: 3073105865170726679, guid: b520bc5762ab97c4a8fa5e533dd4d9c3, type: 3}
   _imagesContainer: {fileID: 89228223}
@@ -1963,11 +1978,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7973787213919865600, guid: 0d547652fbfa13c47adbd429ebc8e6d0, type: 3}
       propertyPath: m_Pivot.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7973787213919865600, guid: 0d547652fbfa13c47adbd429ebc8e6d0, type: 3}
       propertyPath: m_Pivot.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7973787213919865600, guid: 0d547652fbfa13c47adbd429ebc8e6d0, type: 3}
       propertyPath: m_RootOrder
@@ -4090,11 +4105,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7973787213919865600, guid: 0d547652fbfa13c47adbd429ebc8e6d0, type: 3}
       propertyPath: m_Pivot.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7973787213919865600, guid: 0d547652fbfa13c47adbd429ebc8e6d0, type: 3}
       propertyPath: m_Pivot.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7973787213919865600, guid: 0d547652fbfa13c47adbd429ebc8e6d0, type: 3}
       propertyPath: m_RootOrder
@@ -4396,11 +4411,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7973787213919865600, guid: 0d547652fbfa13c47adbd429ebc8e6d0, type: 3}
       propertyPath: m_Pivot.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7973787213919865600, guid: 0d547652fbfa13c47adbd429ebc8e6d0, type: 3}
       propertyPath: m_Pivot.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7973787213919865600, guid: 0d547652fbfa13c47adbd429ebc8e6d0, type: 3}
       propertyPath: m_RootOrder

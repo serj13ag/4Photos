@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Prefabs;
@@ -12,7 +13,7 @@ namespace Controllers
     {
         [SerializeField] private LevelStaticData[] _levelsStaticData;
 
-        [SerializeField] private Image _imagePrefab;
+        [SerializeField] private ImageButton _imageButtonPrefab;
         [SerializeField] private WordButton _wordButtonPrefab;
         [SerializeField] private KeyboardButton _keyboardButtonPrefab;
 
@@ -125,18 +126,18 @@ namespace Controllers
             }
         }
 
-        private void CreateImages(IEnumerable<Sprite> images)
+        private void CreateImages(IReadOnlyList<Sprite> images)
         {
-            foreach (Sprite image in images)
+            for (int i = 0; i < images.Count; i++)
             {
-                Image imagePrefab = Instantiate(_imagePrefab, _imagesContainer);
-                imagePrefab.sprite = image;
+                ImageButton imagePrefab = Instantiate(_imageButtonPrefab, _imagesContainer);
+                imagePrefab.Init(images[i], GetImagePivotByIndex(i));
             }
         }
 
-        private void CreateWordButtons(char[] answerChars)
+        private void CreateWordButtons(IReadOnlyList<char> answerChars)
         {
-            _wordButtons = new WordButton[answerChars.Length];
+            _wordButtons = new WordButton[answerChars.Count];
 
             for (int i = 0; i < _wordButtons.Length; i++)
             {
@@ -171,6 +172,18 @@ namespace Controllers
             {
                 Destroy(child.gameObject);
             }
+        }
+
+        private static Vector2 GetImagePivotByIndex(int i)
+        {
+            return i switch
+            {
+                0 => new Vector2(0, 1),
+                1 => new Vector2(1, 1),
+                2 => new Vector2(0, 0),
+                3 => new Vector2(1, 0),
+                _ => throw new ArgumentOutOfRangeException(nameof(i), i, null)
+            };
         }
     }
 }
