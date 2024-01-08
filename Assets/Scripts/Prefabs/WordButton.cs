@@ -127,6 +127,7 @@ namespace Prefabs
             }
 
             _text.text = text;
+            _text.color = color;
             _image.color = color;
             _button.interactable = isInteractable;
         }
