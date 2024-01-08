@@ -29,6 +29,7 @@ namespace Controllers
 
         private RandomService _randomService;
 
+        private int _currentLevelIndex;
         private string _answerWord;
         private WordButton[] _wordButtons;
         private KeyboardButton[] _keyboardButtons;
@@ -44,9 +45,23 @@ namespace Controllers
 
         private void Start()
         {
-            LevelStaticData currentLevelStaticData = _levelsStaticData[0];
-
             _randomService = new RandomService();
+
+            _currentLevelIndex = 0;
+
+            InitLevelWithCurrentIndex();
+        }
+
+        private void OnDisable()
+        {
+            _resetWordButton.onClick.RemoveListener(OnResetWordButtonClicked);
+            _hintFillWordCharacterButton.onClick.RemoveListener(OnHintFillWordCharacterButtonClicked);
+            _hintHideWrongKeyboardCharacterButton.onClick.RemoveListener(OnHintHideWrongKeyboardCharacterButtonClicked);
+        }
+
+        private void InitLevelWithCurrentIndex()
+        {
+            LevelStaticData currentLevelStaticData = _levelsStaticData[_currentLevelIndex];
 
             _answerWord = currentLevelStaticData.Word.ToUpper();
             char[] answerChars = _answerWord.ToCharArray();
@@ -56,13 +71,6 @@ namespace Controllers
             CreateImages(currentLevelStaticData.Images);
             CreateWordButtons(answerChars);
             CreateKeyboardButtons(charactersForKeyboard);
-        }
-
-        private void OnDisable()
-        {
-            _resetWordButton.onClick.RemoveListener(OnResetWordButtonClicked);
-            _hintFillWordCharacterButton.onClick.RemoveListener(OnHintFillWordCharacterButtonClicked);
-            _hintHideWrongKeyboardCharacterButton.onClick.RemoveListener(OnHintHideWrongKeyboardCharacterButtonClicked);
         }
 
         public bool TryFillWord(KeyboardButton keyboardButton)
@@ -103,7 +111,7 @@ namespace Controllers
             {
                 if (AnswerIsRight())
                 {
-                    Win();
+                    ChangeLevelToNext();
                 }
                 else
                 {
@@ -125,9 +133,15 @@ namespace Controllers
             return true;
         }
 
-        private void Win()
+        private void ChangeLevelToNext()
         {
-            // TODO: load next level
+            _currentLevelIndex++;
+            if (_currentLevelIndex > _levelsStaticData.Length - 1)
+            {
+                _currentLevelIndex = 0;
+            }
+
+            InitLevelWithCurrentIndex();
         }
 
         private void HighlightWordAsWrong()
