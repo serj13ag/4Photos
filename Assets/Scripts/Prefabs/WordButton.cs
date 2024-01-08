@@ -13,6 +13,7 @@ namespace Prefabs
             Empty,
             FilledByKeyboard,
             FilledByHint,
+            Wrong,
         }
 
         [SerializeField] private Image _image;
@@ -27,6 +28,7 @@ namespace Prefabs
         private KeyboardButton _keyboardButtonUsedToFillCharacter;
 
         public bool IsFilledWithCharacter => _filledCharacter.HasValue;
+        public bool IsFilledWithAnswerCharacter => _filledCharacter == _answerCharacter;
         public bool IsLocked => _state == WordButtonState.FilledByHint;
 
         public void Init(char answerCharacter, MainController mainController)
@@ -58,17 +60,32 @@ namespace Prefabs
         {
             _filledCharacter = null;
 
-            _keyboardButtonUsedToFillCharacter.Activate();
-            _keyboardButtonUsedToFillCharacter = null;
+            if (_keyboardButtonUsedToFillCharacter != null)
+            {
+                _keyboardButtonUsedToFillCharacter.Activate();
+                _keyboardButtonUsedToFillCharacter = null;
+            }
 
             _mainController.UpdateCurrentWordCharIndex();
 
             ChangeState(WordButtonState.Empty);
         }
 
+        public void SetAsWrong()
+        {
+            ChangeState(WordButtonState.Wrong);
+        }
+
         private void OnButtonClick()
         {
-            SetAsEmpty();
+            if (_state == WordButtonState.Wrong)
+            {
+                _mainController.ResetAllWordButtonsAfterWrong();
+            }
+            else
+            {
+                SetAsEmpty();
+            }
         }
 
         private void ChangeState(WordButtonState newState)
@@ -99,6 +116,11 @@ namespace Prefabs
                     text = _filledCharacter.ToString();
                     color = Constants.FilledByHintButtonColor;
                     isInteractable = false;
+                    break;
+                case WordButtonState.Wrong:
+                    text = _filledCharacter.ToString();
+                    color = Constants.WrongCharacterButtonColor;
+                    isInteractable = true;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(newState), newState, null);

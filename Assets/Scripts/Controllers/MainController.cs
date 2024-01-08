@@ -74,7 +74,13 @@ namespace Controllers
 
             _wordButtons[_currentWordCharIndex].FillByKeyboard(keyboardButton);
             UpdateCurrentWordCharIndex();
+            CheckAnswer();
             return true;
+        }
+
+        public void ResetAllWordButtonsAfterWrong()
+        {
+            ResetWordButtons();
         }
 
         public void UpdateCurrentWordCharIndex()
@@ -91,17 +97,50 @@ namespace Controllers
             _currentWordCharIndex = -1;
         }
 
-        private void OnResetWordButtonClicked()
+        private void CheckAnswer()
+        {
+            if (_currentWordCharIndex == -1)
+            {
+                if (AnswerIsRight())
+                {
+                    Win();
+                }
+                else
+                {
+                    HighlightWordAsWrong();
+                }
+            }
+        }
+
+        private bool AnswerIsRight()
         {
             foreach (WordButton wordButton in _wordButtons)
             {
-                if (wordButton.IsFilledWithCharacter && !wordButton.IsLocked)
+                if (!wordButton.IsFilledWithAnswerCharacter)
                 {
-                    wordButton.SetAsEmpty();
+                    return false;
                 }
             }
 
-            UpdateCurrentWordCharIndex();
+            return true;
+        }
+
+        private void Win()
+        {
+            // TODO: load next level
+        }
+
+        private void HighlightWordAsWrong()
+        {
+            foreach (WordButton wordButton in _wordButtons)
+            {
+                wordButton.SetAsWrong();
+            }
+        }
+
+        private void OnResetWordButtonClicked()
+        {
+            ResetWordButtons();
         }
 
         private void OnHintHideWrongKeyboardCharacterButtonClicked()
@@ -124,9 +163,23 @@ namespace Controllers
                 {
                     wordButton.FillByHint();
                     UpdateCurrentWordCharIndex();
+                    CheckAnswer();
                     return;
                 }
             }
+        }
+
+        private void ResetWordButtons()
+        {
+            foreach (WordButton wordButton in _wordButtons)
+            {
+                if (wordButton.IsFilledWithCharacter && !wordButton.IsLocked)
+                {
+                    wordButton.SetAsEmpty();
+                }
+            }
+
+            UpdateCurrentWordCharIndex();
         }
 
         private void CreateImages(IReadOnlyList<Sprite> images)

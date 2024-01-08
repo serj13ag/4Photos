@@ -10,4 +10,5 @@ public static class Constants
     public static Color EmptyButtonColor = Color.white;
     public static Color FilledByKeyboardButtonColor = Color.yellow;
     public static Color FilledByHintButtonColor = Color.green;
+    public static Color WrongCharacterButtonColor = Color.red;
 }
