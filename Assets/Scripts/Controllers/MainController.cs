@@ -30,6 +30,7 @@ namespace Controllers
         [SerializeField] private Button _resetWordButton;
         [SerializeField] private Button _hintFillWordCharacterButton;
         [SerializeField] private Button _hintHideWrongKeyboardCharacterButton;
+        [SerializeField] private Button _incrementCoinsButton;
 
         private RandomService _randomService;
 
@@ -47,6 +48,7 @@ namespace Controllers
             _resetWordButton.onClick.AddListener(OnResetWordButtonClicked);
             _hintFillWordCharacterButton.onClick.AddListener(OnHintFillWordCharacterButtonClicked);
             _hintHideWrongKeyboardCharacterButton.onClick.AddListener(OnHintHideWrongKeyboardCharacterButtonClicked);
+            _incrementCoinsButton.onClick.AddListener(OnIncrementCoinsButtonClicked);
         }
 
         private void Start()
@@ -57,7 +59,11 @@ namespace Controllers
             _currentLevelIndex = 0;
 
             InitLevelWithCurrentIndex();
+            UpdateCoinsText();
+        }
 
+        private void UpdateCoinsText()
+        {
             _coinsText.text = _coins.ToString();
         }
 
@@ -66,6 +72,7 @@ namespace Controllers
             _resetWordButton.onClick.RemoveListener(OnResetWordButtonClicked);
             _hintFillWordCharacterButton.onClick.RemoveListener(OnHintFillWordCharacterButtonClicked);
             _hintHideWrongKeyboardCharacterButton.onClick.RemoveListener(OnHintHideWrongKeyboardCharacterButtonClicked);
+            _incrementCoinsButton.onClick.RemoveListener(OnIncrementCoinsButtonClicked);
         }
 
         private void InitLevelWithCurrentIndex()
@@ -193,6 +200,12 @@ namespace Controllers
                     return;
                 }
             }
+        }
+
+        private void OnIncrementCoinsButtonClicked()
+        {
+            _coins++;
+            UpdateCoinsText();
         }
 
         private void ResetWordButtons()

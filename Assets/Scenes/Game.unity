@@ -1586,6 +1586,7 @@ MonoBehaviour:
   _resetWordButton: {fileID: 1856555157}
   _hintFillWordCharacterButton: {fileID: 911965302}
   _hintHideWrongKeyboardCharacterButton: {fileID: 2021127074}
+  _incrementCoinsButton: {fileID: 1432135084}
 --- !u!1001 &911965300
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2537,6 +2538,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1371490736}
   m_CullTransparentMesh: 1
+--- !u!224 &1432135083 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6341354563624028459, guid: d916736ab1e651c45bd65e7a049df08b, type: 3}
+  m_PrefabInstance: {fileID: 6700539573816320078}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1432135084 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6341354563624028458, guid: d916736ab1e651c45bd65e7a049df08b, type: 3}
+  m_PrefabInstance: {fileID: 6700539573816320078}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1455811822
 GameObject:
   m_ObjectHideFlags: 0
@@ -3640,6 +3657,7 @@ RectTransform:
   - {fileID: 1753750304}
   - {fileID: 1763496202}
   - {fileID: 5980281}
+  - {fileID: 1432135083}
   m_Father: {fileID: 215935253}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4441,6 +4459,55 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e6096f581478525449f910d28864b4cc, type: 3}
+--- !u!1001 &6700539573816320078
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1975748407}
+    m_Modifications:
+    - target: {fileID: 6341354563624028459, guid: d916736ab1e651c45bd65e7a049df08b, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6341354563624028459, guid: d916736ab1e651c45bd65e7a049df08b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6341354563624028459, guid: d916736ab1e651c45bd65e7a049df08b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6341354563624028459, guid: d916736ab1e651c45bd65e7a049df08b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6341354563624028459, guid: d916736ab1e651c45bd65e7a049df08b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 995
+      objectReference: {fileID: 0}
+    - target: {fileID: 6341354563624028459, guid: d916736ab1e651c45bd65e7a049df08b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6341354563624028459, guid: d916736ab1e651c45bd65e7a049df08b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6341354563624028459, guid: d916736ab1e651c45bd65e7a049df08b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6341354563624028459, guid: d916736ab1e651c45bd65e7a049df08b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6341354563624028460, guid: d916736ab1e651c45bd65e7a049df08b, type: 3}
+      propertyPath: m_Name
+      value: IncrementCoinsButton
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d916736ab1e651c45bd65e7a049df08b, type: 3}
 --- !u!1001 &7935565926215670423
 PrefabInstance:
   m_ObjectHideFlags: 0
