@@ -25,12 +25,15 @@ namespace Controllers
         [SerializeField] private Transform _scalingImageContainer;
 
         [SerializeField] private TMP_Text _levelNumberText;
+        [SerializeField] private TMP_Text _coinsText;
 
         [SerializeField] private Button _resetWordButton;
         [SerializeField] private Button _hintFillWordCharacterButton;
         [SerializeField] private Button _hintHideWrongKeyboardCharacterButton;
 
         private RandomService _randomService;
+
+        private int _coins;
 
         private int _currentLevelIndex;
         private string _answerWord;
@@ -50,9 +53,12 @@ namespace Controllers
         {
             _randomService = new RandomService();
 
+            _coins = 4;
             _currentLevelIndex = 0;
 
             InitLevelWithCurrentIndex();
+
+            _coinsText.text = _coins.ToString();
         }
 
         private void OnDisable()
