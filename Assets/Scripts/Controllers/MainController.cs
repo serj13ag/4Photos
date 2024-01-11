@@ -67,6 +67,8 @@ namespace Controllers
             char[] answerChars = _answerWord.ToCharArray();
             char[] charactersForKeyboard = _randomService.GetCharactersForKeyboard(answerChars, Constants.NumberOfKeyboardButtons);
 
+            _currentWordCharIndex = 0;
+
             ClearContainers();
             CreateImages(currentLevelStaticData.Images);
             CreateWordButtons(answerChars);
