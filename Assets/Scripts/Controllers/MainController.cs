@@ -4,6 +4,7 @@ using System.Linq;
 using Prefabs;
 using ScriptableObjects;
 using Services;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,6 +23,8 @@ namespace Controllers
         [SerializeField] private Transform _wordContainer;
         [SerializeField] private Transform _keyboardContainer;
         [SerializeField] private Transform _scalingImageContainer;
+
+        [SerializeField] private TMP_Text _levelNumberText;
 
         [SerializeField] private Button _resetWordButton;
         [SerializeField] private Button _hintFillWordCharacterButton;
@@ -70,6 +73,7 @@ namespace Controllers
             _currentWordCharIndex = 0;
 
             ClearContainers();
+            _levelNumberText.text = (_currentLevelIndex + 1).ToString();
             CreateImages(currentLevelStaticData.Images);
             CreateWordButtons(answerChars);
             CreateKeyboardButtons(charactersForKeyboard);
