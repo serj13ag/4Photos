@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Prefabs
 {
-    public class ScalingImagePrefab : MonoBehaviour
+    public class ScalingImage : MonoBehaviour
     {
         [SerializeField] private RectTransform _rectTransform;
         [SerializeField] private Image _image;

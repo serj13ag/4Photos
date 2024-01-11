@@ -17,7 +17,7 @@ namespace Controllers
         [SerializeField] private ImageButton _imageButtonPrefab;
         [SerializeField] private WordButton _wordButtonPrefab;
         [SerializeField] private KeyboardButton _keyboardButtonPrefab;
-        [SerializeField] private ScalingImagePrefab _scalingImagePrefab;
+        [SerializeField] private ScalingImage _scalingImagePrefab;
 
         [SerializeField] private RectTransform _imagesGridRectTransform;
         [SerializeField] private Transform _wordContainer;
@@ -37,7 +37,7 @@ namespace Controllers
         private WordButton[] _wordButtons;
         private KeyboardButton[] _keyboardButtons;
         private int _currentWordCharIndex;
-        private ScalingImagePrefab _scalingImage;
+        private ScalingImage _scalingImage;
 
         private void OnEnable()
         {
