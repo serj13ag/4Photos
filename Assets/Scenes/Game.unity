@@ -1178,6 +1178,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Image (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 7973787213919865603, guid: 0d547652fbfa13c47adbd429ebc8e6d0, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7973787213919865603, guid: 0d547652fbfa13c47adbd429ebc8e6d0, type: 3}
+      propertyPath: m_Color.a
+      value: 0.45490196
+      objectReference: {fileID: 0}
+    - target: {fileID: 7973787213919865603, guid: 0d547652fbfa13c47adbd429ebc8e6d0, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7973787213919865603, guid: 0d547652fbfa13c47adbd429ebc8e6d0, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7973787213919865603, guid: 0d547652fbfa13c47adbd429ebc8e6d0, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d547652fbfa13c47adbd429ebc8e6d0, type: 3}
 --- !u!224 &487286512 stripped
@@ -1574,14 +1594,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 55617989aa9a00c45b9e36981359a2f1, type: 2}
   - {fileID: 11400000, guid: 6d780386ba56a5a4b8ee9310f0b0c012, type: 2}
   _imagesController: {fileID: 1198757283}
-  _imageButtonPrefab: {fileID: 319131692809642303, guid: 0d547652fbfa13c47adbd429ebc8e6d0, type: 3}
   _wordButtonPrefab: {fileID: 62871248873341139, guid: d31eaf4cce351a94fb0fc1d66476ab8a, type: 3}
   _keyboardButtonPrefab: {fileID: 3073105865170726679, guid: b520bc5762ab97c4a8fa5e533dd4d9c3, type: 3}
-  _scalingImagePrefab: {fileID: 2592362948621472593, guid: 8862c3873f3c19c4eabb6e9e84529c32, type: 3}
-  _imagesGridRectTransform: {fileID: 89228223}
   _wordContainer: {fileID: 702325900}
   _keyboardContainer: {fileID: 1777639649}
-  _scalingImageContainer: {fileID: 2127808198}
   _levelNumberText: {fileID: 1972404745}
   _coinsText: {fileID: 2030664482}
   _resetWordButton: {fileID: 1856555157}
@@ -4265,6 +4281,26 @@ PrefabInstance:
     - target: {fileID: 7973787213919865601, guid: 0d547652fbfa13c47adbd429ebc8e6d0, type: 3}
       propertyPath: m_Name
       value: Image (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7973787213919865603, guid: 0d547652fbfa13c47adbd429ebc8e6d0, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7973787213919865603, guid: 0d547652fbfa13c47adbd429ebc8e6d0, type: 3}
+      propertyPath: m_Color.a
+      value: 0.19215687
+      objectReference: {fileID: 0}
+    - target: {fileID: 7973787213919865603, guid: 0d547652fbfa13c47adbd429ebc8e6d0, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7973787213919865603, guid: 0d547652fbfa13c47adbd429ebc8e6d0, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7973787213919865603, guid: 0d547652fbfa13c47adbd429ebc8e6d0, type: 3}
+      propertyPath: m_Color.r
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d547652fbfa13c47adbd429ebc8e6d0, type: 3}

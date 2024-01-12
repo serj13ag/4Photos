@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Enums;
 using Extensions;
 using Prefabs;
 using UnityEngine;
@@ -16,12 +17,12 @@ namespace Controllers
 
         private ScalingImage _scalingImage;
 
-        public void CreateImages(IReadOnlyList<Sprite> images)
+        public void CreateImageButtons(IReadOnlyList<Sprite> images)
         {
             for (int i = 0; i < images.Count; i++)
             {
-                ImageButton imagePrefab = Instantiate(_imageButtonPrefab, _imagesGridRectTransform);
-                imagePrefab.Init(images[i], GetImagePivotByIndex(i), this);
+                ImageButton imageButton = Instantiate(_imageButtonPrefab, _imagesGridRectTransform);
+                imageButton.Init(images[i], GetImagePivotByIndex(i), GetImageInitialStateByIndex(i), this);
             }
         }
 
@@ -32,20 +33,32 @@ namespace Controllers
                 imageRectTransform.pivot, _imagesGridRectTransform.rect.size);
         }
 
-        public void ClearContainer()
+        public void ClearImages()
         {
             _imagesGridRectTransform.DestroyAllChildren();
         }
 
-        private static Vector2 GetImagePivotByIndex(int i)
+        private static Vector2 GetImagePivotByIndex(int index)
         {
-            return i switch
+            return index switch
             {
                 0 => new Vector2(0, 1),
                 1 => new Vector2(1, 1),
                 2 => new Vector2(0, 0),
                 3 => new Vector2(1, 0),
-                _ => throw new ArgumentOutOfRangeException(nameof(i), i, null)
+                _ => throw new ArgumentOutOfRangeException(nameof(index), index, null),
+            };
+        }
+
+        private static ImageButtonState GetImageInitialStateByIndex(int index)
+        {
+            return index switch
+            {
+                0 => ImageButtonState.Opened,
+                1 => ImageButtonState.Closed,
+                2 => ImageButtonState.Blocked,
+                3 => ImageButtonState.Blocked,
+                _ => throw new ArgumentOutOfRangeException(nameof(index), index, null),
             };
         }
     }

@@ -82,9 +82,10 @@ namespace Controllers
 
             _currentWordCharIndex = 0;
 
-            ClearContainers();
             _levelNumberText.text = (_currentLevelIndex + 1).ToString();
-            _imagesController.CreateImages(currentLevelStaticData.Images);
+
+            ClearContainers();
+            _imagesController.CreateImageButtons(currentLevelStaticData.Images);
             CreateWordButtons(answerChars);
             CreateKeyboardButtons(charactersForKeyboard);
         }
@@ -244,10 +245,10 @@ namespace Controllers
 
         private void ClearContainers()
         {
+            _imagesController.ClearImages();
+
             _wordContainer.DestroyAllChildren();
             _keyboardContainer.DestroyAllChildren();
-
-            _imagesController.ClearContainer();
         }
     }
 }
