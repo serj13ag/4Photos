@@ -10,11 +10,11 @@ namespace Prefabs
         [SerializeField] private Image _image;
         [SerializeField] private Button _button;
 
-        private MainController _mainController;
+        private ImagesController _imagesController;
 
-        public void Init(Sprite sprite, Vector2 pivot, MainController mainController)
+        public void Init(Sprite sprite, Vector2 pivot, ImagesController imagesController)
         {
-            _mainController = mainController;
+            _imagesController = imagesController;
             _image.sprite = sprite;
             _rectTransform.pivot = pivot;
 
@@ -23,7 +23,7 @@ namespace Prefabs
 
         private void OnImageButtonClick()
         {
-            _mainController.ShowScalingImage(_image.sprite, _rectTransform);
+            _imagesController.ShowScalingImage(_image.sprite, _rectTransform);
         }
     }
 }

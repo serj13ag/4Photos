@@ -1,6 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using Extensions;
 using Prefabs;
 using ScriptableObjects;
 using Services;
@@ -14,15 +14,13 @@ namespace Controllers
     {
         [SerializeField] private LevelStaticData[] _levelsStaticData;
 
-        [SerializeField] private ImageButton _imageButtonPrefab;
+        [SerializeField] private ImagesController _imagesController;
+
         [SerializeField] private WordButton _wordButtonPrefab;
         [SerializeField] private KeyboardButton _keyboardButtonPrefab;
-        [SerializeField] private ScalingImage _scalingImagePrefab;
 
-        [SerializeField] private RectTransform _imagesGridRectTransform;
         [SerializeField] private Transform _wordContainer;
         [SerializeField] private Transform _keyboardContainer;
-        [SerializeField] private Transform _scalingImageContainer;
 
         [SerializeField] private TMP_Text _levelNumberText;
         [SerializeField] private TMP_Text _coinsText;
@@ -41,7 +39,6 @@ namespace Controllers
         private WordButton[] _wordButtons;
         private KeyboardButton[] _keyboardButtons;
         private int _currentWordCharIndex;
-        private ScalingImage _scalingImage;
 
         private void OnEnable()
         {
@@ -87,7 +84,7 @@ namespace Controllers
 
             ClearContainers();
             _levelNumberText.text = (_currentLevelIndex + 1).ToString();
-            CreateImages(currentLevelStaticData.Images);
+            _imagesController.CreateImages(currentLevelStaticData.Images);
             CreateWordButtons(answerChars);
             CreateKeyboardButtons(charactersForKeyboard);
         }
@@ -221,15 +218,6 @@ namespace Controllers
             UpdateCurrentWordCharIndex();
         }
 
-        private void CreateImages(IReadOnlyList<Sprite> images)
-        {
-            for (int i = 0; i < images.Count; i++)
-            {
-                ImageButton imagePrefab = Instantiate(_imageButtonPrefab, _imagesGridRectTransform);
-                imagePrefab.Init(images[i], GetImagePivotByIndex(i), this);
-            }
-        }
-
         private void CreateWordButtons(IReadOnlyList<char> answerChars)
         {
             _wordButtons = new WordButton[answerChars.Count];
@@ -256,35 +244,10 @@ namespace Controllers
 
         private void ClearContainers()
         {
-            DestroyAllChildren(_imagesGridRectTransform);
-            DestroyAllChildren(_wordContainer);
-            DestroyAllChildren(_keyboardContainer);
-        }
+            _wordContainer.DestroyAllChildren();
+            _keyboardContainer.DestroyAllChildren();
 
-        private static void DestroyAllChildren(Transform container)
-        {
-            foreach (Transform child in container)
-            {
-                Destroy(child.gameObject);
-            }
-        }
-
-        private static Vector2 GetImagePivotByIndex(int i)
-        {
-            return i switch
-            {
-                0 => new Vector2(0, 1),
-                1 => new Vector2(1, 1),
-                2 => new Vector2(0, 0),
-                3 => new Vector2(1, 0),
-                _ => throw new ArgumentOutOfRangeException(nameof(i), i, null)
-            };
-        }
-
-        public void ShowScalingImage(Sprite sprite, RectTransform imageRectTransform)
-        {
-            _scalingImage = Instantiate(_scalingImagePrefab, _scalingImageContainer);
-            _scalingImage.Init(sprite, imageRectTransform.position, imageRectTransform.sizeDelta, imageRectTransform.pivot, _imagesGridRectTransform.rect.size);
+            _imagesController.ClearContainer();
         }
     }
 }
