@@ -1,6 +1,7 @@
 ﻿using System;
 using Controllers;
 using Enums;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,9 @@ namespace Prefabs
         [SerializeField] private RectTransform _rectTransform;
         [SerializeField] private Image _image;
         [SerializeField] private Button _button;
+        [SerializeField] private Image _lockImage;
+        [SerializeField] private Transform _openCostCoinsContainer;
+        [SerializeField] private TMP_Text _openCostCoinsText;
 
         private ImagesController _imagesController;
 
@@ -25,6 +29,8 @@ namespace Prefabs
             _state = state;
             _rectTransform.pivot = pivot;
 
+            _openCostCoinsText.text = $"-{Constants.OpenImageCost}";
+
             UpdateView(_state);
 
             _button.onClick.AddListener(OnImageButtonClick);
@@ -32,6 +38,9 @@ namespace Prefabs
 
         private void UpdateView(ImageButtonState state)
         {
+            bool showLockImage = false;
+            bool showOpenCost = false;
+
             Sprite sprite;
             Color color;
 
@@ -44,10 +53,12 @@ namespace Prefabs
                 case ImageButtonState.Closed:
                     sprite = null;
                     color = Constants.ClosedImageButtonColor;
+                    showOpenCost = true;
                     break;
                 case ImageButtonState.Blocked:
                     sprite = null;
                     color = Constants.BlockedImageButtonColor;
+                    showLockImage = true;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(state), state, null);
@@ -55,6 +66,9 @@ namespace Prefabs
 
             _image.sprite = sprite;
             _image.color = color;
+
+            _lockImage.gameObject.SetActive(showLockImage);
+            _openCostCoinsContainer.gameObject.SetActive(showOpenCost);
         }
 
         private void OnImageButtonClick()

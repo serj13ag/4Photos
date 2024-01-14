@@ -7,6 +7,8 @@ public static class Constants
     public const int NumberOfKeyboardButtons = 14;
     public const int MaxNumberOfWordCharacters = 7;
 
+    public const int OpenImageCost = 2;
+
     public static Color EmptyButtonColor = Color.white;
     public static Color FilledByKeyboardButtonColor = new Color32(233, 196, 106, 255);
     public static Color FilledByHintButtonColor = new Color32(42, 157, 143, 255);
