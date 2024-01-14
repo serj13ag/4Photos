@@ -2024,6 +2024,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b7483e80d0144a1b6bea01dabf7ead7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _mainController: {fileID: 860967850}
   _imageButtonPrefab: {fileID: 319131692809642303, guid: 0d547652fbfa13c47adbd429ebc8e6d0, type: 3}
   _scalingImagePrefab: {fileID: 2592362948621472593, guid: 8862c3873f3c19c4eabb6e9e84529c32, type: 3}
   _imagesGridRectTransform: {fileID: 89228223}

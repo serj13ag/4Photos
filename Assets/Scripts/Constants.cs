@@ -3,9 +3,11 @@
 public static class Constants
 {
     public const string AlphabetCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    public const int NumberOfImages = 4;
     public const int NumberOfKeyboardButtons = 14;
     public const int MaxNumberOfWordCharacters = 7;
+
+    public const int NumberOfImages = 4;
+    public const int NumberOfInitiallyOpenedImages = 1;
 
     public const int OpenImageCost = 2;
 

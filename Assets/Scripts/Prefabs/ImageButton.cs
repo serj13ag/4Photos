@@ -36,12 +36,20 @@ namespace Prefabs
             _button.onClick.AddListener(OnImageButtonClick);
         }
 
+        public void ChangeState(ImageButtonState newState)
+        {
+            if (_state != newState)
+            {
+                _state = newState;
+                UpdateView();
+            }
+        }
+
         private void UpdateView()
         {
             bool showLockImage = false;
             bool showOpenCost = false;
-
-            Sprite sprite;
+            Sprite sprite = null;
             Color color;
 
             switch (_state)
@@ -51,12 +59,10 @@ namespace Prefabs
                     color = Color.white;
                     break;
                 case ImageButtonState.Closed:
-                    sprite = null;
                     color = Constants.ClosedImageButtonColor;
                     showOpenCost = true;
                     break;
                 case ImageButtonState.Blocked:
-                    sprite = null;
                     color = Constants.BlockedImageButtonColor;
                     showLockImage = true;
                     break;
@@ -73,15 +79,14 @@ namespace Prefabs
 
         private void OnImageButtonClick()
         {
-            if (_state == ImageButtonState.Opened)
+            switch (_state)
             {
-                _imagesController.ShowScalingImage(_image.sprite, _rectTransform);
-            }
-
-            if (_state == ImageButtonState.Closed && _imagesController.TryOpenImage())
-            {
-                _state = ImageButtonState.Opened;
-                UpdateView();
+                case ImageButtonState.Opened:
+                    _imagesController.ShowScalingImage(_image.sprite, _rectTransform);
+                    break;
+                case ImageButtonState.Closed:
+                    _imagesController.TryOpenImage();
+                    break;
             }
         }
     }

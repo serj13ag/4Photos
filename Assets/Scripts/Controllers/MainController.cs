@@ -80,7 +80,7 @@ namespace Controllers
             _levelNumberText.text = (_currentLevelIndex + 1).ToString();
 
             ClearContainers();
-            _imagesController.CreateImageButtons(currentLevelStaticData.Images);
+            _imagesController.CreateImageButtons(currentLevelStaticData.Images, Constants.NumberOfInitiallyOpenedImages);
             CreateWordButtons(answerChars);
             CreateKeyboardButtons(charactersForKeyboard);
         }

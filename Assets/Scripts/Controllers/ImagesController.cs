@@ -17,14 +17,22 @@ namespace Controllers
         [SerializeField] private RectTransform _imagesGridRectTransform;
         [SerializeField] private Transform _scalingImageContainer;
 
+        private int _lastOpenedImageIndex;
         private ScalingImage _scalingImage;
+        private ImageButton[] _imageButtons;
 
-        public void CreateImageButtons(IReadOnlyList<Sprite> images)
+        public void CreateImageButtons(IReadOnlyList<Sprite> images, int numberOfInitiallyOpenedImages)
         {
+            _lastOpenedImageIndex = numberOfInitiallyOpenedImages - 1;
+
+            _imageButtons = new ImageButton[images.Count];
+
             for (int i = 0; i < images.Count; i++)
             {
                 ImageButton imageButton = Instantiate(_imageButtonPrefab, _imagesGridRectTransform);
-                imageButton.Init(images[i], GetImagePivotByIndex(i), GetImageInitialStateByIndex(i), this);
+                imageButton.Init(images[i], GetImagePivotByIndex(i), GetImageStateByIndex(i), this);
+
+                _imageButtons[i] = imageButton;
             }
         }
 
@@ -35,19 +43,43 @@ namespace Controllers
                 imageRectTransform.pivot, _imagesGridRectTransform.rect.size);
         }
 
-        public bool TryOpenImage()
+        public void TryOpenImage()
         {
             if (_mainController.TrySpendCoins(Constants.OpenImageCost))
             {
-                return true;
-            }
+                _lastOpenedImageIndex++;
 
-            return false;
+                UpdateImageButtonsState();
+            }
         }
 
         public void ClearImages()
         {
+            _imageButtons = null;
             _imagesGridRectTransform.DestroyAllChildren();
+        }
+
+        private void UpdateImageButtonsState()
+        {
+            for (int i = 0; i < _imageButtons.Length; i++)
+            {
+                _imageButtons[i].ChangeState(GetImageStateByIndex(i));
+            }
+        }
+
+        private ImageButtonState GetImageStateByIndex(int index)
+        {
+            if (index <= _lastOpenedImageIndex)
+            {
+                return ImageButtonState.Opened;
+            }
+
+            if (index == _lastOpenedImageIndex + 1)
+            {
+                return ImageButtonState.Closed;
+            }
+
+            return ImageButtonState.Blocked;
         }
 
         private static Vector2 GetImagePivotByIndex(int index)
@@ -58,18 +90,6 @@ namespace Controllers
                 1 => new Vector2(1, 1),
                 2 => new Vector2(0, 0),
                 3 => new Vector2(1, 0),
-                _ => throw new ArgumentOutOfRangeException(nameof(index), index, null),
-            };
-        }
-
-        private static ImageButtonState GetImageInitialStateByIndex(int index)
-        {
-            return index switch
-            {
-                0 => ImageButtonState.Opened,
-                1 => ImageButtonState.Closed,
-                2 => ImageButtonState.Blocked,
-                3 => ImageButtonState.Blocked,
                 _ => throw new ArgumentOutOfRangeException(nameof(index), index, null),
             };
         }
