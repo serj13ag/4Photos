@@ -31,12 +31,12 @@ namespace Prefabs
 
             _openCostCoinsText.text = $"-{Constants.OpenImageCost}";
 
-            UpdateView(_state);
+            UpdateView();
 
             _button.onClick.AddListener(OnImageButtonClick);
         }
 
-        private void UpdateView(ImageButtonState state)
+        private void UpdateView()
         {
             bool showLockImage = false;
             bool showOpenCost = false;
@@ -44,7 +44,7 @@ namespace Prefabs
             Sprite sprite;
             Color color;
 
-            switch (state)
+            switch (_state)
             {
                 case ImageButtonState.Opened:
                     sprite = _imageSprite;
@@ -61,7 +61,7 @@ namespace Prefabs
                     showLockImage = true;
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(state), state, null);
+                    throw new ArgumentOutOfRangeException(nameof(_state), _state, null);
             }
 
             _image.sprite = sprite;
@@ -76,6 +76,12 @@ namespace Prefabs
             if (_state == ImageButtonState.Opened)
             {
                 _imagesController.ShowScalingImage(_image.sprite, _rectTransform);
+            }
+
+            if (_state == ImageButtonState.Closed && _imagesController.TryOpenImage())
+            {
+                _state = ImageButtonState.Opened;
+                UpdateView();
             }
         }
     }

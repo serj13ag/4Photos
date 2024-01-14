@@ -9,6 +9,8 @@ namespace Controllers
 {
     public class ImagesController : MonoBehaviour
     {
+        [SerializeField] private MainController _mainController;
+
         [SerializeField] private ImageButton _imageButtonPrefab;
         [SerializeField] private ScalingImage _scalingImagePrefab;
 
@@ -31,6 +33,16 @@ namespace Controllers
             _scalingImage = Instantiate(_scalingImagePrefab, _scalingImageContainer);
             _scalingImage.Init(sprite, imageRectTransform.position, imageRectTransform.sizeDelta,
                 imageRectTransform.pivot, _imagesGridRectTransform.rect.size);
+        }
+
+        public bool TryOpenImage()
+        {
+            if (_mainController.TrySpendCoins(Constants.OpenImageCost))
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public void ClearImages()

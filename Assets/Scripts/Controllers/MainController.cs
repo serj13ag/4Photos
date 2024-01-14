@@ -59,11 +59,6 @@ namespace Controllers
             UpdateCoinsText();
         }
 
-        private void UpdateCoinsText()
-        {
-            _coinsText.text = _coins.ToString();
-        }
-
         private void OnDisable()
         {
             _resetWordButton.onClick.RemoveListener(OnResetWordButtonClicked);
@@ -100,6 +95,18 @@ namespace Controllers
             _wordButtons[_currentWordCharIndex].FillByKeyboard(keyboardButton);
             UpdateCurrentWordCharIndex();
             CheckAnswer();
+            return true;
+        }
+
+        public bool TrySpendCoins(int coins)
+        {
+            if (_coins < coins)
+            {
+                return false;
+            }
+
+            _coins -= coins;
+            UpdateCoinsText();
             return true;
         }
 
@@ -204,6 +211,11 @@ namespace Controllers
         {
             _coins++;
             UpdateCoinsText();
+        }
+
+        private void UpdateCoinsText()
+        {
+            _coinsText.text = _coins.ToString();
         }
 
         private void ResetWordButtons()
