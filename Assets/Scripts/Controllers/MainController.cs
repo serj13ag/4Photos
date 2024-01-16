@@ -15,6 +15,7 @@ namespace Controllers
         [SerializeField] private LevelStaticData[] _levelsStaticData;
 
         [SerializeField] private ImagesController _imagesController;
+        [SerializeField] private WinWindow _winWindow;
 
         [SerializeField] private WordButton _wordButtonPrefab;
         [SerializeField] private KeyboardButton _keyboardButtonPrefab;
@@ -135,7 +136,7 @@ namespace Controllers
             {
                 if (AnswerIsRight())
                 {
-                    ChangeLevelToNext();
+                    _winWindow.ShowWindow(ChangeLevelToNext);
                 }
                 else
                 {
