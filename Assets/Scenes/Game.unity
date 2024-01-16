@@ -4885,6 +4885,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6980558984239279434, guid: 849c55a49b7073649b68e09006149f02, type: 3}
+      propertyPath: _backgroundBlocker
+      value: 
+      objectReference: {fileID: 727763915}
     - target: {fileID: 6980558984239279435, guid: 849c55a49b7073649b68e09006149f02, type: 3}
       propertyPath: m_RootOrder
       value: 2
