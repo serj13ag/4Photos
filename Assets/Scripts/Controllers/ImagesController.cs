@@ -9,7 +9,7 @@ namespace Controllers
 {
     public class ImagesController : MonoBehaviour
     {
-        [SerializeField] private MainController _mainController;
+        [SerializeField] private CoinsController _coinsController;
 
         [SerializeField] private ImageButton _imageButtonPrefab;
         [SerializeField] private ScalingImage _scalingImagePrefab;
@@ -45,7 +45,7 @@ namespace Controllers
 
         public void TryOpenImage()
         {
-            if (_mainController.TrySpendCoins(Constants.OpenImageCost))
+            if (_coinsController.TrySpendCoins(Constants.OpenImageCost))
             {
                 _lastOpenedImageIndex++;
 
