@@ -7,11 +7,10 @@ namespace Controllers
 {
     public class LevelController : MonoBehaviour
     {
-        [SerializeField] private LevelStaticData[] _levelsStaticData;
-
         [SerializeField] private TMP_Text _levelNumberText;
 
         private RandomService _randomService;
+        private StaticDataService _staticDataService;
         private ImagesController _imagesController;
         private WordController _wordController;
         private KeyboardController _keyboardController;
@@ -20,10 +19,11 @@ namespace Controllers
 
         public string AnswerWord { get; private set; }
 
-        public void Init(RandomService randomService, ImagesController imagesController, WordController wordController,
-            KeyboardController keyboardController)
+        public void Init(RandomService randomService, StaticDataService staticDataService,
+            ImagesController imagesController, WordController wordController, KeyboardController keyboardController)
         {
             _randomService = randomService;
+            _staticDataService = staticDataService;
             _imagesController = imagesController;
             _wordController = wordController;
             _keyboardController = keyboardController;
@@ -41,7 +41,7 @@ namespace Controllers
         public void ChangeLevelToNext()
         {
             _currentLevelIndex++;
-            if (_currentLevelIndex > _levelsStaticData.Length - 1)
+            if (_currentLevelIndex > _staticDataService.Levels.Length - 1)
             {
                 _currentLevelIndex = 0;
             }
@@ -52,7 +52,7 @@ namespace Controllers
 
         private void CreateLevelWithCurrentIndex()
         {
-            LevelStaticData currentLevelStaticData = _levelsStaticData[_currentLevelIndex];
+            LevelStaticData currentLevelStaticData = _staticDataService.Levels[_currentLevelIndex];
 
             AnswerWord = currentLevelStaticData.Word.ToUpper();
             char[] answerChars = AnswerWord.ToCharArray();

@@ -1836,6 +1836,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de5dc7c8da6147ff96f1ed971f6e57ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _levelsStaticData:
+  - {fileID: 11400000, guid: 55617989aa9a00c45b9e36981359a2f1, type: 2}
+  - {fileID: 11400000, guid: 6d780386ba56a5a4b8ee9310f0b0c012, type: 2}
   _levelController: {fileID: 860967850}
   _coinsController: {fileID: 599351096}
   _imagesController: {fileID: 1198757283}
@@ -1892,9 +1895,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6537711b556426542a044a4f500b7c78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _levelsStaticData:
-  - {fileID: 11400000, guid: 55617989aa9a00c45b9e36981359a2f1, type: 2}
-  - {fileID: 11400000, guid: 6d780386ba56a5a4b8ee9310f0b0c012, type: 2}
   _levelNumberText: {fileID: 1972404745}
 --- !u!224 &872639726 stripped
 RectTransform:

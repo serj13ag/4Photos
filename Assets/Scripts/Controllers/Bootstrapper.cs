@@ -1,10 +1,13 @@
-﻿using Services;
+﻿using ScriptableObjects;
+using Services;
 using UnityEngine;
 
 namespace Controllers
 {
     public class Bootstrapper : MonoBehaviour
     {
+        [SerializeField] private LevelStaticData[] _levelsStaticData;
+
         [SerializeField] private LevelController _levelController;
         [SerializeField] private CoinsController _coinsController;
         [SerializeField] private ImagesController _imagesController;
@@ -15,15 +18,14 @@ namespace Controllers
 
         [SerializeField] private GameObject _backgroundBlocker;
 
-        private RandomService _randomService;
-
         private void Start()
         {
-            _randomService = new RandomService();
+            RandomService randomService = new RandomService();
+            StaticDataService staticDataService = new StaticDataService(_levelsStaticData);
 
-            _levelController.Init(_randomService, _imagesController, _wordController, _keyboardController);
-            _wordController.Init(_randomService, _winWindow);
-            _keyboardController.Init(_randomService, _levelController, _wordController);
+            _levelController.Init(randomService, staticDataService, _imagesController, _wordController, _keyboardController);
+            _wordController.Init(randomService, _winWindow);
+            _keyboardController.Init(randomService, _levelController, _wordController);
             _imagesController.Init(_coinsController);
 
             _winWindow.Init(_levelController, _backgroundBlocker);
