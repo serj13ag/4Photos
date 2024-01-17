@@ -5,11 +5,10 @@ using UnityEngine;
 
 namespace Controllers
 {
-    public class MainController : MonoBehaviour
+    public class LevelController : MonoBehaviour
     {
         [SerializeField] private LevelStaticData[] _levelsStaticData;
 
-        [SerializeField] private CoinsController _coinsController;
         [SerializeField] private ImagesController _imagesController;
         [SerializeField] private WordController _wordController;
         [SerializeField] private KeyboardController _keyboardController;
@@ -17,23 +16,34 @@ namespace Controllers
         [SerializeField] private TMP_Text _levelNumberText;
 
         private RandomService _randomService;
+
         private int _currentLevelIndex;
 
         public string AnswerWord { get; private set; }
 
-        private void Start()
+        public void Init(RandomService randomService)
+        {
+            _randomService = randomService;
+        }
+
+        public void CreateInitialLevel()
         {
             Cleanup();
 
-            _randomService = new RandomService();
-
             _currentLevelIndex = 0;
 
-            _wordController.Init(_randomService);
-            _keyboardController.Init(_randomService);
+            CreateLevelWithCurrentIndex();
+        }
 
-            _coinsController.SetCoinsAmount(Constants.InitialCoinsAmount);
+        public void ChangeLevelToNext()
+        {
+            _currentLevelIndex++;
+            if (_currentLevelIndex > _levelsStaticData.Length - 1)
+            {
+                _currentLevelIndex = 0;
+            }
 
+            Cleanup();
             CreateLevelWithCurrentIndex();
         }
 
@@ -50,18 +60,6 @@ namespace Controllers
             _keyboardController.CreateKeyboardButtons(charactersForKeyboard);
 
             UpdateLevelNumberText();
-        }
-
-        public void ChangeLevelToNext()
-        {
-            _currentLevelIndex++;
-            if (_currentLevelIndex > _levelsStaticData.Length - 1)
-            {
-                _currentLevelIndex = 0;
-            }
-
-            Cleanup();
-            CreateLevelWithCurrentIndex();
         }
 
         private void Cleanup()

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class WinWindow : MonoBehaviour
 {
-    [SerializeField] private MainController _mainController;
+    [SerializeField] private LevelController _levelController;
 
     [SerializeField] private Image _backgroundBlocker;
     [SerializeField] private Button _nextLevelButton;
@@ -36,7 +36,7 @@ public class WinWindow : MonoBehaviour
 
     private void HideWindow()
     {
-        _mainController.ChangeLevelToNext();
+        _levelController.ChangeLevelToNext();
 
         _backgroundBlocker.gameObject.SetActive(false);
         gameObject.SetActive(false);

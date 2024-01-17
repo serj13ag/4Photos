@@ -10,7 +10,7 @@ namespace Controllers
 {
     public class KeyboardController : MonoBehaviour
     {
-        [SerializeField] private MainController _mainController;
+        [SerializeField] private LevelController _levelController;
         [SerializeField] private WordController _wordController;
 
         [SerializeField] private KeyboardButton _keyboardButtonPrefab;
@@ -58,7 +58,7 @@ namespace Controllers
         {
             foreach (KeyboardButton keyboardButton in _keyboardButtons.OrderBy(_ => _randomService.Random.Next()))
             {
-                if (!keyboardButton.IsHided && !_mainController.AnswerWord.Contains(keyboardButton.Character))
+                if (!keyboardButton.IsHided && !_levelController.AnswerWord.Contains(keyboardButton.Character))
                 {
                     keyboardButton.Hide();
                     return;
