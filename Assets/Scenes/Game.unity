@@ -601,6 +601,55 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &156042991
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 156042993}
+  - component: {fileID: 156042992}
+  m_Layer: 0
+  m_Name: KeyboardController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &156042992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156042991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85bbcf79a90647f5aa25d1cb402deb4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mainController: {fileID: 860967850}
+  _wordController: {fileID: 1172418989}
+  _keyboardButtonPrefab: {fileID: 3073105865170726679, guid: b520bc5762ab97c4a8fa5e533dd4d9c3, type: 3}
+  _keyboardContainer: {fileID: 1777639649}
+  _hintHideWrongKeyboardCharacterButton: {fileID: 2021127074}
+--- !u!4 &156042993
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156042991}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &171270961
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -768,7 +817,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &215935249
 GameObject:
@@ -866,7 +915,7 @@ RectTransform:
   - {fileID: 727763914}
   - {fileID: 872639726}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1333,7 +1382,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &585567199
 PrefabInstance:
@@ -1764,10 +1813,8 @@ MonoBehaviour:
   _coinsController: {fileID: 599351096}
   _imagesController: {fileID: 1198757283}
   _wordController: {fileID: 1172418989}
-  _keyboardButtonPrefab: {fileID: 3073105865170726679, guid: b520bc5762ab97c4a8fa5e533dd4d9c3, type: 3}
-  _keyboardContainer: {fileID: 1777639649}
+  _keyboardController: {fileID: 156042992}
   _levelNumberText: {fileID: 1972404745}
-  _hintHideWrongKeyboardCharacterButton: {fileID: 2021127074}
 --- !u!224 &872639726 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6980558984239279435, guid: 849c55a49b7073649b68e09006149f02, type: 3}
