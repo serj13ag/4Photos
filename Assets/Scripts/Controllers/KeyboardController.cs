@@ -10,15 +10,14 @@ namespace Controllers
 {
     public class KeyboardController : MonoBehaviour
     {
-        [SerializeField] private LevelController _levelController;
-        [SerializeField] private WordController _wordController;
-
         [SerializeField] private KeyboardButton _keyboardButtonPrefab;
         [SerializeField] private Transform _keyboardContainer;
 
         [SerializeField] private Button _hintHideWrongKeyboardCharacterButton;
 
         private RandomService _randomService;
+        private LevelController _levelController;
+        private WordController _wordController;
 
         private KeyboardButton[] _keyboardButtons;
 
@@ -32,9 +31,11 @@ namespace Controllers
             _hintHideWrongKeyboardCharacterButton.onClick.RemoveListener(OnHintHideWrongKeyboardCharacterButtonClicked);
         }
 
-        public void Init(RandomService randomService)
+        public void Init(RandomService randomService, LevelController levelController, WordController wordController)
         {
             _randomService = randomService;
+            _levelController = levelController;
+            _wordController = wordController;
         }
 
         public void CreateKeyboardButtons(IReadOnlyList<char> randomCharacters)

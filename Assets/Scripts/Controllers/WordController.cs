@@ -10,8 +10,6 @@ namespace Controllers
 {
     public class WordController : MonoBehaviour
     {
-        [SerializeField] private WinWindow _winWindow;
-
         [SerializeField] private WordButton _wordButtonPrefab;
         [SerializeField] private Transform _wordContainer;
 
@@ -19,6 +17,7 @@ namespace Controllers
         [SerializeField] private Button _hintFillWordCharacterButton;
 
         private RandomService _randomService;
+        private WinWindow _winWindow;
 
         private WordButton[] _wordButtons;
         private int _currentWordCharIndex;
@@ -35,9 +34,10 @@ namespace Controllers
             _hintFillWordCharacterButton.onClick.RemoveListener(OnHintFillWordCharacterButtonClicked);
         }
 
-        public void Init(RandomService randomService)
+        public void Init(RandomService randomService, WinWindow winWindow)
         {
             _randomService = randomService;
+            _winWindow = winWindow;
         }
 
         public void CreateWordButtons(IReadOnlyList<char> answerChars)

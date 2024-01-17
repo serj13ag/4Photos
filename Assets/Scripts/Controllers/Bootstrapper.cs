@@ -7,8 +7,13 @@ namespace Controllers
     {
         [SerializeField] private LevelController _levelController;
         [SerializeField] private CoinsController _coinsController;
+        [SerializeField] private ImagesController _imagesController;
         [SerializeField] private WordController _wordController;
         [SerializeField] private KeyboardController _keyboardController;
+
+        [SerializeField] private WinWindow _winWindow;
+
+        [SerializeField] private GameObject _backgroundBlocker;
 
         private RandomService _randomService;
 
@@ -16,9 +21,12 @@ namespace Controllers
         {
             _randomService = new RandomService();
 
-            _levelController.Init(_randomService);
-            _wordController.Init(_randomService);
-            _keyboardController.Init(_randomService);
+            _levelController.Init(_randomService, _imagesController, _wordController, _keyboardController);
+            _wordController.Init(_randomService, _winWindow);
+            _keyboardController.Init(_randomService, _levelController, _wordController);
+            _imagesController.Init(_coinsController);
+
+            _winWindow.Init(_levelController, _backgroundBlocker);
 
             _coinsController.SetCoinsAmount(Constants.InitialCoinsAmount);
 

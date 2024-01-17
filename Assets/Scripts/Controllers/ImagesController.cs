@@ -9,17 +9,22 @@ namespace Controllers
 {
     public class ImagesController : MonoBehaviour
     {
-        [SerializeField] private CoinsController _coinsController;
-
         [SerializeField] private ImageButton _imageButtonPrefab;
         [SerializeField] private ScalingImage _scalingImagePrefab;
 
         [SerializeField] private RectTransform _imagesGridRectTransform;
         [SerializeField] private Transform _scalingImageContainer;
 
+        private CoinsController _coinsController;
+
         private int _lastOpenedImageIndex;
         private ScalingImage _scalingImage;
         private ImageButton[] _imageButtons;
+
+        public void Init(CoinsController coinsController)
+        {
+            _coinsController = coinsController;
+        }
 
         public void CreateImageButtons(IReadOnlyList<Sprite> images, int numberOfInitiallyOpenedImages)
         {

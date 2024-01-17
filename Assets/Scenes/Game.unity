@@ -630,8 +630,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85bbcf79a90647f5aa25d1cb402deb4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _levelController: {fileID: 860967850}
-  _wordController: {fileID: 1172418989}
   _keyboardButtonPrefab: {fileID: 3073105865170726679, guid: b520bc5762ab97c4a8fa5e533dd4d9c3, type: 3}
   _keyboardContainer: {fileID: 1777639649}
   _hintHideWrongKeyboardCharacterButton: {fileID: 2021127074}
@@ -1840,8 +1838,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _levelController: {fileID: 860967850}
   _coinsController: {fileID: 599351096}
+  _imagesController: {fileID: 1198757283}
   _wordController: {fileID: 1172418989}
   _keyboardController: {fileID: 156042992}
+  _winWindow: {fileID: 872639727}
+  _backgroundBlocker: {fileID: 727763913}
 --- !u!224 &852927473 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7973787213919865600, guid: 0d547652fbfa13c47adbd429ebc8e6d0, type: 3}
@@ -1894,9 +1895,6 @@ MonoBehaviour:
   _levelsStaticData:
   - {fileID: 11400000, guid: 55617989aa9a00c45b9e36981359a2f1, type: 2}
   - {fileID: 11400000, guid: 6d780386ba56a5a4b8ee9310f0b0c012, type: 2}
-  _imagesController: {fileID: 1198757283}
-  _wordController: {fileID: 1172418989}
-  _keyboardController: {fileID: 156042992}
   _levelNumberText: {fileID: 1972404745}
 --- !u!224 &872639726 stripped
 RectTransform:
@@ -2286,7 +2284,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 868cf5aa551843b2a101f1851a054045, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _winWindow: {fileID: 872639727}
   _wordButtonPrefab: {fileID: 62871248873341139, guid: d31eaf4cce351a94fb0fc1d66476ab8a, type: 3}
   _wordContainer: {fileID: 702325900}
   _resetWordButton: {fileID: 1856555157}
@@ -2376,7 +2373,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b7483e80d0144a1b6bea01dabf7ead7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _coinsController: {fileID: 599351096}
   _imageButtonPrefab: {fileID: 319131692809642303, guid: 0d547652fbfa13c47adbd429ebc8e6d0, type: 3}
   _scalingImagePrefab: {fileID: 2592362948621472593, guid: 8862c3873f3c19c4eabb6e9e84529c32, type: 3}
   _imagesGridRectTransform: {fileID: 89228223}

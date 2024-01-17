@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 public class WinWindow : MonoBehaviour
 {
-    [SerializeField] private LevelController _levelController;
-
-    [SerializeField] private Image _backgroundBlocker;
     [SerializeField] private Button _nextLevelButton;
     [SerializeField] private RectTransformMover _rectTransformMover;
+
+    private LevelController _levelController;
+    private GameObject _backgroundBlocker;
 
     private void OnEnable()
     {
@@ -21,9 +21,15 @@ public class WinWindow : MonoBehaviour
         _nextLevelButton.onClick.RemoveListener(OnNextLevelButtonClicked);
     }
 
+    public void Init(LevelController levelController, GameObject backgroundBlocker)
+    {
+        _levelController = levelController;
+        _backgroundBlocker = backgroundBlocker;
+    }
+
     public void ShowWindow()
     {
-        _backgroundBlocker.gameObject.SetActive(true);
+        _backgroundBlocker.SetActive(true);
         gameObject.SetActive(true);
 
         _rectTransformMover.MoveIn();
@@ -38,7 +44,7 @@ public class WinWindow : MonoBehaviour
     {
         _levelController.ChangeLevelToNext();
 
-        _backgroundBlocker.gameObject.SetActive(false);
+        _backgroundBlocker.SetActive(false);
         gameObject.SetActive(false);
     }
 }

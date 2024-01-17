@@ -9,21 +9,24 @@ namespace Controllers
     {
         [SerializeField] private LevelStaticData[] _levelsStaticData;
 
-        [SerializeField] private ImagesController _imagesController;
-        [SerializeField] private WordController _wordController;
-        [SerializeField] private KeyboardController _keyboardController;
-
         [SerializeField] private TMP_Text _levelNumberText;
 
         private RandomService _randomService;
+        private ImagesController _imagesController;
+        private WordController _wordController;
+        private KeyboardController _keyboardController;
 
         private int _currentLevelIndex;
 
         public string AnswerWord { get; private set; }
 
-        public void Init(RandomService randomService)
+        public void Init(RandomService randomService, ImagesController imagesController, WordController wordController,
+            KeyboardController keyboardController)
         {
             _randomService = randomService;
+            _imagesController = imagesController;
+            _wordController = wordController;
+            _keyboardController = keyboardController;
         }
 
         public void CreateInitialLevel()
