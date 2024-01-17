@@ -21,9 +21,9 @@ namespace Controllers
             _incrementCoinsButton.onClick.RemoveListener(OnIncrementCoinsButtonClicked);
         }
 
-        public void Init()
+        public void SetCoinsAmount(int coins)
         {
-            _coins = 4;
+            _coins = coins;
             UpdateCoinsText();
         }
 

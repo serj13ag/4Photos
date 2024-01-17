@@ -1,15 +1,15 @@
-using System;
 using Components;
+using Controllers;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class WinWindow : MonoBehaviour
 {
+    [SerializeField] private MainController _mainController;
+
     [SerializeField] private Image _backgroundBlocker;
     [SerializeField] private Button _nextLevelButton;
     [SerializeField] private RectTransformMover _rectTransformMover;
-
-    private Action _nextLevelButtonClickedCallback;
 
     private void OnEnable()
     {
@@ -21,10 +21,8 @@ public class WinWindow : MonoBehaviour
         _nextLevelButton.onClick.RemoveListener(OnNextLevelButtonClicked);
     }
 
-    public void ShowWindow(Action nextLevelButtonClickedCallback)
+    public void ShowWindow()
     {
-        _nextLevelButtonClickedCallback = nextLevelButtonClickedCallback;
-
         _backgroundBlocker.gameObject.SetActive(true);
         gameObject.SetActive(true);
 
@@ -38,8 +36,7 @@ public class WinWindow : MonoBehaviour
 
     private void HideWindow()
     {
-        _nextLevelButtonClickedCallback.Invoke();
-        _nextLevelButtonClickedCallback = null;
+        _mainController.ChangeLevelToNext();
 
         _backgroundBlocker.gameObject.SetActive(false);
         gameObject.SetActive(false);

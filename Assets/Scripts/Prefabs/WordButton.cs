@@ -20,7 +20,7 @@ namespace Prefabs
         [SerializeField] private TMP_Text _text;
         [SerializeField] private Button _button;
 
-        private MainController _mainController;
+        private WordController _wordController;
         private char _answerCharacter;
 
         private WordButtonState _state;
@@ -31,9 +31,9 @@ namespace Prefabs
         public bool IsFilledWithAnswerCharacter => _filledCharacter == _answerCharacter;
         public bool IsLocked => _state == WordButtonState.FilledByHint;
 
-        public void Init(char answerCharacter, MainController mainController)
+        public void Init(char answerCharacter, WordController wordController)
         {
-            _mainController = mainController;
+            _wordController = wordController;
             _answerCharacter = answerCharacter;
 
             ChangeState(WordButtonState.Empty);
@@ -66,7 +66,7 @@ namespace Prefabs
                 _keyboardButtonUsedToFillCharacter = null;
             }
 
-            _mainController.UpdateCurrentWordCharIndex();
+            _wordController.UpdateCurrentWordCharIndex();
 
             ChangeState(WordButtonState.Empty);
         }
@@ -80,7 +80,7 @@ namespace Prefabs
         {
             if (_state == WordButtonState.Wrong)
             {
-                _mainController.ResetAllWordButtonsAfterWrong();
+                _wordController.ResetAllWordButtonsAfterWrong();
             }
             else
             {

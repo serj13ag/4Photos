@@ -6,6 +6,8 @@ public static class Constants
     public const int NumberOfKeyboardButtons = 14;
     public const int MaxNumberOfWordCharacters = 7;
 
+    public const int InitialCoinsAmount = 4;
+
     public const int NumberOfImages = 4;
     public const int NumberOfInitiallyOpenedImages = 1;
 

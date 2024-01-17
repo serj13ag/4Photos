@@ -16,49 +16,42 @@ namespace Controllers
 
         [SerializeField] private CoinsController _coinsController;
         [SerializeField] private ImagesController _imagesController;
-        [SerializeField] private WinWindow _winWindow;
+        [SerializeField] private WordController _wordController;
 
-        [SerializeField] private WordButton _wordButtonPrefab;
         [SerializeField] private KeyboardButton _keyboardButtonPrefab;
-
-        [SerializeField] private Transform _wordContainer;
         [SerializeField] private Transform _keyboardContainer;
 
         [SerializeField] private TMP_Text _levelNumberText;
 
-        [SerializeField] private Button _resetWordButton;
-        [SerializeField] private Button _hintFillWordCharacterButton;
         [SerializeField] private Button _hintHideWrongKeyboardCharacterButton;
 
         private RandomService _randomService;
 
         private int _currentLevelIndex;
         private string _answerWord;
-        private WordButton[] _wordButtons;
         private KeyboardButton[] _keyboardButtons;
-        private int _currentWordCharIndex;
-
-        private void OnEnable()
-        {
-            _resetWordButton.onClick.AddListener(OnResetWordButtonClicked);
-            _hintFillWordCharacterButton.onClick.AddListener(OnHintFillWordCharacterButtonClicked);
-            _hintHideWrongKeyboardCharacterButton.onClick.AddListener(OnHintHideWrongKeyboardCharacterButtonClicked);
-        }
 
         private void Start()
         {
+            Cleanup();
+
             _randomService = new RandomService();
 
             _currentLevelIndex = 0;
 
-            _coinsController.Init();
+            _wordController.Init(_randomService);
+            _coinsController.SetCoinsAmount(Constants.InitialCoinsAmount);
+
             InitLevelWithCurrentIndex();
+        }
+
+        private void OnEnable()
+        {
+            _hintHideWrongKeyboardCharacterButton.onClick.AddListener(OnHintHideWrongKeyboardCharacterButtonClicked);
         }
 
         private void OnDisable()
         {
-            _resetWordButton.onClick.RemoveListener(OnResetWordButtonClicked);
-            _hintFillWordCharacterButton.onClick.RemoveListener(OnHintFillWordCharacterButtonClicked);
             _hintHideWrongKeyboardCharacterButton.onClick.RemoveListener(OnHintHideWrongKeyboardCharacterButtonClicked);
         }
 
@@ -70,77 +63,14 @@ namespace Controllers
             char[] answerChars = _answerWord.ToCharArray();
             char[] charactersForKeyboard = _randomService.GetCharactersForKeyboard(answerChars, Constants.NumberOfKeyboardButtons);
 
-            _currentWordCharIndex = 0;
-
             _levelNumberText.text = (_currentLevelIndex + 1).ToString();
 
-            ClearContainers();
             _imagesController.CreateImageButtons(currentLevelStaticData.Images, Constants.NumberOfInitiallyOpenedImages);
-            CreateWordButtons(answerChars);
+            _wordController.CreateWordButtons(answerChars);
             CreateKeyboardButtons(charactersForKeyboard);
         }
 
-        public bool TryFillWord(KeyboardButton keyboardButton)
-        {
-            if (_currentWordCharIndex == -1)
-            {
-                return false;
-            }
-
-            _wordButtons[_currentWordCharIndex].FillByKeyboard(keyboardButton);
-            UpdateCurrentWordCharIndex();
-            CheckAnswer();
-            return true;
-        }
-
-        public void ResetAllWordButtonsAfterWrong()
-        {
-            ResetWordButtons();
-        }
-
-        public void UpdateCurrentWordCharIndex()
-        {
-            for (int i = 0; i < _wordButtons.Length; i++)
-            {
-                if (!_wordButtons[i].IsFilledWithCharacter)
-                {
-                    _currentWordCharIndex = i;
-                    return;
-                }
-            }
-
-            _currentWordCharIndex = -1;
-        }
-
-        private void CheckAnswer()
-        {
-            if (_currentWordCharIndex == -1)
-            {
-                if (AnswerIsRight())
-                {
-                    _winWindow.ShowWindow(ChangeLevelToNext);
-                }
-                else
-                {
-                    HighlightWordAsWrong();
-                }
-            }
-        }
-
-        private bool AnswerIsRight()
-        {
-            foreach (WordButton wordButton in _wordButtons)
-            {
-                if (!wordButton.IsFilledWithAnswerCharacter)
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        private void ChangeLevelToNext()
+        public void ChangeLevelToNext()
         {
             _currentLevelIndex++;
             if (_currentLevelIndex > _levelsStaticData.Length - 1)
@@ -148,20 +78,8 @@ namespace Controllers
                 _currentLevelIndex = 0;
             }
 
+            Cleanup();
             InitLevelWithCurrentIndex();
-        }
-
-        private void HighlightWordAsWrong()
-        {
-            foreach (WordButton wordButton in _wordButtons)
-            {
-                wordButton.SetAsWrong();
-            }
-        }
-
-        private void OnResetWordButtonClicked()
-        {
-            ResetWordButtons();
         }
 
         private void OnHintHideWrongKeyboardCharacterButtonClicked()
@@ -176,45 +94,6 @@ namespace Controllers
             }
         }
 
-        private void OnHintFillWordCharacterButtonClicked()
-        {
-            foreach (WordButton wordButton in _wordButtons.OrderBy(_ => _randomService.Random.Next()))
-            {
-                if (!wordButton.IsFilledWithCharacter)
-                {
-                    wordButton.FillByHint();
-                    UpdateCurrentWordCharIndex();
-                    CheckAnswer();
-                    return;
-                }
-            }
-        }
-
-        private void ResetWordButtons()
-        {
-            foreach (WordButton wordButton in _wordButtons)
-            {
-                if (wordButton.IsFilledWithCharacter && !wordButton.IsLocked)
-                {
-                    wordButton.SetAsEmpty();
-                }
-            }
-
-            UpdateCurrentWordCharIndex();
-        }
-
-        private void CreateWordButtons(IReadOnlyList<char> answerChars)
-        {
-            _wordButtons = new WordButton[answerChars.Count];
-
-            for (int i = 0; i < _wordButtons.Length; i++)
-            {
-                WordButton wordButton = Instantiate(_wordButtonPrefab, _wordContainer);
-                wordButton.Init(answerChars[i], this);
-                _wordButtons[i] = wordButton;
-            }
-        }
-
         private void CreateKeyboardButtons(IReadOnlyList<char> randomCharacters)
         {
             _keyboardButtons = new KeyboardButton[randomCharacters.Count];
@@ -222,16 +101,15 @@ namespace Controllers
             for (int i = 0; i < randomCharacters.Count; i++)
             {
                 KeyboardButton keyboardButton = Instantiate(_keyboardButtonPrefab, _keyboardContainer);
-                keyboardButton.Init(randomCharacters[i], this);
+                keyboardButton.Init(randomCharacters[i], _wordController);
                 _keyboardButtons[i] = keyboardButton;
             }
         }
 
-        private void ClearContainers()
+        private void Cleanup()
         {
             _imagesController.ClearImages();
-
-            _wordContainer.DestroyAllChildren();
+            _wordController.ClearWordButtons();
             _keyboardContainer.DestroyAllChildren();
         }
     }

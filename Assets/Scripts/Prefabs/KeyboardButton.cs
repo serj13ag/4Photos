@@ -18,15 +18,15 @@ namespace Prefabs
         [SerializeField] private TMP_Text _text;
         [SerializeField] private Button _button;
 
-        private MainController _mainController;
+        private WordController _wordController;
         private KeyboardButtonState _state;
 
         public char Character { get; private set; }
         public bool IsHided => _state == KeyboardButtonState.Hided;
 
-        public void Init(char character, MainController mainController)
+        public void Init(char character, WordController wordController)
         {
-            _mainController = mainController;
+            _wordController = wordController;
 
             Character = character;
 
@@ -50,7 +50,7 @@ namespace Prefabs
 
         private void OnButtonClick()
         {
-            if (!IsHided && _mainController.TryFillWord(this))
+            if (!IsHided && _wordController.TryFillWord(this))
             {
                 ChangeState(KeyboardButtonState.Inactive);
             }
